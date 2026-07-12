@@ -83,8 +83,11 @@ export function ReportCard({ report }: { report: Report }) {
           </div>
         ) : (
           <Button variant="outline" className="w-full" asChild>
-            {/* La descarga real de PDFs llega con el panel admin (subidas) */}
-            <a href="#">
+            {/* Si no hay PDF subido aún, el botón queda como placeholder */}
+            <a
+              href={report.fileUrl ?? "#"}
+              {...(report.fileUrl ? { target: "_blank", rel: "noreferrer" } : {})}
+            >
               <Download className="h-4 w-4" aria-hidden />
               {t("download")}
             </a>

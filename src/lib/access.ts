@@ -39,8 +39,9 @@ export async function getViewer(): Promise<Viewer | null> {
   return user;
 }
 
-/** ¿El usuario actual alcanza el tier requerido? (anónimo = no). */
+/** ¿El usuario actual alcanza el tier requerido? (anónimo = no; ADMIN = sí). */
 export async function viewerHasTier(required: Tier): Promise<boolean> {
   const viewer = await getViewer();
-  return viewer !== null && tierSatisfies(viewer.tier, required);
+  if (!viewer) return false;
+  return viewer.role === "ADMIN" || tierSatisfies(viewer.tier, required);
 }

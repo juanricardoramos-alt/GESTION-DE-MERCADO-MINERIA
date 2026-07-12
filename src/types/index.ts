@@ -101,13 +101,18 @@ export interface Report {
   premium: boolean;
   /** true = el contenido premium fue retenido en el servidor. */
   locked: boolean;
+  /** PDF descargable; null si no hay archivo o si el acceso está bloqueado. */
+  fileUrl: string | null;
 }
+
+/** Estudio tal como lo edita el panel admin (sin paywall, con portada). */
+export type AdminStudy = Report & { coverImageUrl: string | null };
 
 /**
  * Forma fuente de un estudio (datos de seed/admin): el resumen siempre
  * existe; `locked` es un derivado de acceso que calcula el servidor.
  */
-export type ReportSeed = Omit<Report, "summary" | "locked"> & {
+export type ReportSeed = Omit<Report, "summary" | "locked" | "fileUrl"> & {
   summary: LocalizedText;
 };
 

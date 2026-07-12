@@ -100,6 +100,19 @@ re-consultando el tier en la base (`viewerHasTier`, `src/lib/access.ts`).
 El cliente solo recibe metadatos públicos + el CTA de membresía; no hay
 contenido oculto con CSS ni difuminado.
 
+## Panel de administración
+
+`/admin` exige rol `ADMIN` (middleware + re-verificación fresca en cada
+página y server action). Incluye CRUD de noticias, estudios, empresas
+(con ejecutivos) y proyectos, con los campos bilingües en tabs ES/EN y
+validación Zod en los server actions. Los estudios aceptan PDF y portada:
+los archivos se guardan en `uploads/` (no versionado) y los sirve
+`/uploads/[...path]`, que aplica el paywall a los PDFs premium (adivinar
+la URL responde 403 sin el plan requerido).
+
+Para crear la cuenta admin: definir `ADMIN_EMAIL` y `ADMIN_PASSWORD` en
+`.env` y correr `npm run db:seed`.
+
 ## Búsqueda y filtros
 
 Los filtros de `/noticias`, `/empresas` y `/mapa` se resuelven en el

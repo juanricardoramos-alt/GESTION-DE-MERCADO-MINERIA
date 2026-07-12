@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 import { COMPANIES } from "../src/data/companies";
 import { NEWS } from "../src/data/news";
@@ -121,11 +122,29 @@ async function seedStudies() {
   }
 }
 
+/** Cuenta ADMIN inicial, solo si ADMIN_EMAIL y ADMIN_PASSWORD están definidas. */
+async function seedAdmin() {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+  if (!email || !password) {
+    console.log("Admin: ADMIN_EMAIL/ADMIN_PASSWORD no definidas, se omite");
+    return;
+  }
+  const passwordHash = await bcrypt.hash(password, 12);
+  await prisma.user.upsert({
+    where: { email },
+    create: { email, name: "Admin", passwordHash, role: "ADMIN" },
+    update: { role: "ADMIN" },
+  });
+  console.log(`Admin listo: ${email}`);
+}
+
 async function main() {
   await seedCompanies();
   await seedProjects();
   await seedArticles();
   await seedStudies();
+  await seedAdmin();
 
   const [companies, executives, projects, articles, studies] =
     await Promise.all([

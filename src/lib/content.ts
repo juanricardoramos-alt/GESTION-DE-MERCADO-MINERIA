@@ -119,6 +119,7 @@ function mapStudy(row: DbStudy, revealPremium: boolean): Report {
     date: toIsoDate(row.date),
     premium: row.premium,
     locked,
+    fileUrl: locked ? null : row.fileUrl,
   };
 }
 
@@ -385,6 +386,46 @@ function paged<T>(
     page,
     pageCount: Math.max(1, Math.ceil(total / pageSize)),
   };
+}
+
+// ---------------------------------------------------------------------------
+// Lecturas del panel admin (sin paywall: el acceso lo garantiza requireAdmin)
+// ---------------------------------------------------------------------------
+
+export async function getArticleById(id: string): Promise<NewsArticle | null> {
+  const row = await prisma.article.findUnique({ where: { id } });
+  return row ? mapArticle(row) : null;
+}
+
+export async function getStudyByIdAdmin(
+  id: string,
+): Promise<(Report & { coverImageUrl: string | null }) | null> {
+  const row = await prisma.study.findUnique({ where: { id } });
+  return row
+    ? { ...mapStudy(row, true), coverImageUrl: row.coverImageUrl }
+    : null;
+}
+
+export async function getCompanyById(id: string): Promise<Company | null> {
+  const row = await prisma.company.findUnique({
+    where: { id },
+    include: { executives: { orderBy: { order: "asc" } } },
+  });
+  return row ? mapCompany(row) : null;
+}
+
+export async function getProjectById(id: string): Promise<Project | null> {
+  const row = await prisma.project.findUnique({ where: { id } });
+  return row ? mapProject(row) : null;
+}
+
+/** Nombres de empresas del directorio (datalist del formulario de proyectos). */
+export async function getCompanyNames(): Promise<string[]> {
+  const rows = await prisma.company.findMany({
+    select: { name: true },
+    orderBy: { name: "asc" },
+  });
+  return rows.map((row) => row.name);
 }
 
 /** Agregados de cartera para los KPIs de portada. */
