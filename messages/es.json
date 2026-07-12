@@ -183,7 +183,8 @@
     "premium": "Exclusivo miembros",
     "download": "Descargar PDF",
     "unlock": "Desbloquear con membresía",
-    "paywallHint": "Este estudio está disponible para los planes Profesional y Corporativo."
+    "paywallHint": "Este estudio está disponible para los planes Profesional y Corporativo.",
+    "lockedSummary": "El resumen ejecutivo y el PDF completo son exclusivos para miembros."
   },
   "membership": {
     "title": "Planes de membresía",

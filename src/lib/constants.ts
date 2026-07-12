@@ -46,6 +46,9 @@ export const TIER_PLAN_ID = {
   CORPORATIVO: "corporativo",
 } as const;
 
+/** Plan mínimo que desbloquea el contenido premium (estudios, dashboards). */
+export const PREMIUM_CONTENT_TIER = "PROFESIONAL" as const;
+
 /** Orden canónico de estados de proyecto. */
 export const PROJECT_STATUSES: ProjectStatus[] = [
   "operation",

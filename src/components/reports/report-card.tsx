@@ -10,8 +10,9 @@ import { formatDate, pickText } from "@/lib/formatters";
 import type { Report } from "@/types";
 
 /**
- * Tarjeta de estudio. Los reportes `premium` muestran un paywall visual:
- * resumen difuminado + candado + CTA hacia la página de membresía.
+ * Tarjeta de estudio. Para reportes premium sin acceso, `summary` llega
+ * como null porque el SERVIDOR lo retuvo (paywall real, no visual): aquí
+ * solo se pinta el panel de bloqueo con el CTA hacia la membresía.
  */
 export function ReportCard({ report }: { report: Report }) {
   const locale = useLocale();
@@ -50,23 +51,17 @@ export function ReportCard({ report }: { report: Report }) {
           {pickText(report.title, locale)}
         </h3>
 
-        {report.premium ? (
-          // Paywall visual: contenido difuminado + candado superpuesto
-          <div className="relative">
-            <p className="select-none text-sm leading-relaxed text-muted-foreground blur-[3px]">
-              {pickText(report.summary, locale)}
-            </p>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm ring-1 ring-border">
-                <Lock className="h-3.5 w-3.5 text-amber-600" aria-hidden />
-                {t("premium")}
-              </span>
-            </div>
-          </div>
-        ) : (
+        {report.summary ? (
           <p className="text-sm leading-relaxed text-muted-foreground">
             {pickText(report.summary, locale)}
           </p>
+        ) : (
+          <div className="flex items-start gap-2.5 rounded-md border border-dashed border-amber-300 bg-amber-50/60 px-3 py-3">
+            <Lock className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" aria-hidden />
+            <p className="text-sm leading-relaxed text-amber-900">
+              {t("lockedSummary")}
+            </p>
+          </div>
         )}
 
         <p className="mt-auto pt-2 text-xs text-muted-foreground">
@@ -74,7 +69,7 @@ export function ReportCard({ report }: { report: Report }) {
           {formatDate(report.date, locale)}
         </p>
 
-        {report.premium ? (
+        {report.locked ? (
           <div className="space-y-2">
             <Button className="w-full" asChild>
               <Link href="/membresia">
@@ -88,7 +83,7 @@ export function ReportCard({ report }: { report: Report }) {
           </div>
         ) : (
           <Button variant="outline" className="w-full" asChild>
-            {/* Descarga simulada: no hay archivos reales en la demo */}
+            {/* La descarga real de PDFs llega con el panel admin (subidas) */}
             <a href="#">
               <Download className="h-4 w-4" aria-hidden />
               {t("download")}

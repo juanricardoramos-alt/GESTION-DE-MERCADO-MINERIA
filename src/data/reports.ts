@@ -1,7 +1,7 @@
-import type { Report } from "@/types";
+import type { ReportSeed } from "@/types";
 
-/** Biblioteca de estudios de ejemplo. `premium: true` activa el paywall visual. */
-export const REPORTS: Report[] = [
+/** Biblioteca de estudios de ejemplo (fuente del seed). `premium: true` = solo miembros. */
+export const REPORTS: ReportSeed[] = [
   {
     id: "r01",
     title: {

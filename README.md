@@ -70,6 +70,15 @@ La sesión es JWT y lleva `role` (USER/ADMIN) y `tier`
 protegidas (`/analisis` exige plan pagado, `/admin` exige rol ADMIN) y la
 autorización fina re-consulta la base en el servidor (`src/lib/access.ts`).
 
+## Paywall server-side
+
+El contenido premium **no sale del servidor** si el usuario no tiene el plan
+requerido: la capa de datos (`getStudies({ revealPremium })`) retiene el
+resumen antes de serializar, y el Server Component decide `revealPremium`
+re-consultando el tier en la base (`viewerHasTier`, `src/lib/access.ts`).
+El cliente solo recibe metadatos públicos + el CTA de membresía; no hay
+contenido oculto con CSS ni difuminado.
+
 ## Convención de contenido bilingüe
 
 Los campos de texto con variante es/en se guardan en Postgres como columnas

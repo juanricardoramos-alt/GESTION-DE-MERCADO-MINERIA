@@ -102,15 +102,21 @@ function mapProject(row: DbProject): Project {
   };
 }
 
-function mapStudy(row: DbStudy): Report {
+/**
+ * PAYWALL SERVER-SIDE: cuando el estudio es premium y `revealPremium` es
+ * false, el resumen se descarta aquí — nunca se serializa hacia el cliente.
+ */
+function mapStudy(row: DbStudy, revealPremium: boolean): Report {
+  const locked = row.premium && !revealPremium;
   return {
     id: row.id,
     title: toLocalized(row.title),
-    summary: toLocalized(row.summary),
+    summary: locked ? null : toLocalized(row.summary),
     sector: row.sector,
     pages: row.pages,
     date: toIsoDate(row.date),
     premium: row.premium,
+    locked,
   };
 }
 
@@ -165,9 +171,14 @@ export async function getProjectsByCompany(
   return rows.map(mapProject);
 }
 
-export async function getStudies(): Promise<Report[]> {
+export async function getStudies({
+  revealPremium,
+}: {
+  /** true solo si el usuario ya fue autorizado (ver src/lib/access.ts). */
+  revealPremium: boolean;
+}): Promise<Report[]> {
   const rows = await prisma.study.findMany({ orderBy: { date: "desc" } });
-  return rows.map(mapStudy);
+  return rows.map((row) => mapStudy(row, revealPremium));
 }
 
 /** Agregados de cartera para los KPIs de portada. */

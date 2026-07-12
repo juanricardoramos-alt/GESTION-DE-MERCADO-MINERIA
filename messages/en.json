@@ -183,7 +183,8 @@
     "premium": "Members only",
     "download": "Download PDF",
     "unlock": "Unlock with membership",
-    "paywallHint": "This report is available on the Professional and Corporate plans."
+    "paywallHint": "This report is available on the Professional and Corporate plans.",
+    "lockedSummary": "The executive summary and full PDF are members-only."
   },
   "membership": {
     "title": "Membership plans",

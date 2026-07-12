@@ -2,24 +2,30 @@
 
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Mail } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-/**
- * Bloque de suscripción al boletín semanal.
- * Envío simulado: no hay backend; solo se muestra el estado de éxito.
- */
+/** Bloque de suscripción al boletín semanal (persiste en la base). */
 export function NewsletterSignup() {
   const t = useTranslations("newsletter");
+  const locale = useLocale();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!email.trim()) return;
-    setSubscribed(true);
+    if (!email.trim() || sending) return;
+    setSending(true);
+    const response = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, locale }),
+    }).catch(() => null);
+    setSending(false);
+    if (response?.ok) setSubscribed(true);
   }
 
   return (

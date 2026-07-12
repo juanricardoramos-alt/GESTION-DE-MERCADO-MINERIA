@@ -88,13 +88,28 @@ export interface Company {
 export interface Report {
   id: string;
   title: LocalizedText;
-  summary: LocalizedText;
+  /**
+   * Resumen ejecutivo. Es `null` cuando el estudio es premium y el usuario
+   * no tiene el plan requerido: el servidor lo retiene y al cliente solo
+   * viajan los metadatos públicos (título, sector, páginas, fecha).
+   */
+  summary: LocalizedText | null;
   sector: SectorId;
   pages: number;
   date: string; // ISO 8601
-  /** true = exclusivo para miembros (paywall visual). */
+  /** true = contenido exclusivo para miembros. */
   premium: boolean;
+  /** true = el contenido premium fue retenido en el servidor. */
+  locked: boolean;
 }
+
+/**
+ * Forma fuente de un estudio (datos de seed/admin): el resumen siempre
+ * existe; `locked` es un derivado de acceso que calcula el servidor.
+ */
+export type ReportSeed = Omit<Report, "summary" | "locked"> & {
+  summary: LocalizedText;
+};
 
 /** Punto mensual de las series de mercado. */
 export interface MonthlyMarketPoint {
