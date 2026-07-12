@@ -21,23 +21,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { COMPANIES } from "@/data/companies";
-import { PROJECTS } from "@/data/projects";
 import { Link } from "@/i18n/navigation";
+import { getCompanyBySlug, getProjectsByCompany } from "@/lib/content";
 import { STATUS_BADGE } from "@/lib/constants";
 import { formatUsdM, pickText } from "@/lib/formatters";
 import { cn, getAvatarColor, getInitials } from "@/lib/utils";
 
-type Props = { params: { locale: string; slug: string } };
+export const dynamic = "force-dynamic";
 
-export function generateStaticParams() {
-  return COMPANIES.map((company) => ({ slug: company.slug }));
-}
+type Props = { params: { locale: string; slug: string } };
 
 export async function generateMetadata({
   params: { slug },
 }: Props): Promise<Metadata> {
-  const company = COMPANIES.find((c) => c.slug === slug);
+  const company = await getCompanyBySlug(slug);
   return { title: company?.name ?? "—" };
 }
 
@@ -48,10 +45,10 @@ export default async function CompanyProfilePage({
   const t = await getTranslations("directory");
   const tStatus = await getTranslations("status");
 
-  const company = COMPANIES.find((c) => c.slug === slug);
+  const company = await getCompanyBySlug(slug);
   if (!company) notFound();
 
-  const relatedProjects = PROJECTS.filter((p) => p.company === company.name);
+  const relatedProjects = await getProjectsByCompany(company.id, company.name);
 
   return (
     <div className="container py-12 sm:py-16">

@@ -7,16 +7,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { CompanyCard } from "@/components/directory/company-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { COMPANIES } from "@/data/companies";
 import { SECTORS } from "@/lib/constants";
 import { pickText } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
-import type { SectorId } from "@/types";
+import type { Company, SectorId } from "@/types";
 
 type SectorFilter = SectorId | "all";
 
 /** Directorio buscable de empresas, filtrable por sector. */
-export function CompanyDirectory() {
+export function CompanyDirectory({ companies }: { companies: Company[] }) {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -25,7 +24,7 @@ export function CompanyDirectory() {
 
   const filtered = useMemo(() => {
     const term = query.trim().toLowerCase();
-    return COMPANIES.filter((company) => {
+    return companies.filter((company) => {
       if (sector !== "all" && !company.sectors.includes(sector)) return false;
       if (!term) return true;
       const haystack = [
@@ -40,7 +39,7 @@ export function CompanyDirectory() {
         .toLowerCase();
       return haystack.includes(term);
     });
-  }, [sector, query, locale]);
+  }, [companies, sector, query, locale]);
 
   const hasFilters = sector !== "all" || query.trim() !== "";
 

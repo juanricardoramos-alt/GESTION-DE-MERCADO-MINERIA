@@ -3,7 +3,6 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 import { MONTHLY_MARKET } from "@/data/market";
-import { PROJECTS } from "@/data/projects";
 import { formatMonthLong, formatNumber } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 
@@ -45,18 +44,22 @@ function Delta({
 }
 
 /**
- * Indicadores destacados del mercado, calculados desde las series de ejemplo:
- * último dato disponible + variación mensual o interanual.
+ * Indicadores destacados del mercado: series de ejemplo (precios/producción)
+ * + agregados de la cartera de proyectos calculados en la base.
  */
-export function KpiStrip() {
+export function KpiStrip({
+  portfolioUsdM,
+  projectCount,
+}: {
+  portfolioUsdM: number;
+  projectCount: number;
+}) {
   const t = useTranslations("home.kpis");
   const locale = useLocale();
 
   const last = MONTHLY_MARKET[MONTHLY_MARKET.length - 1];
   const prev = MONTHLY_MARKET[MONTHLY_MARKET.length - 2];
   const yearAgo = MONTHLY_MARKET[MONTHLY_MARKET.length - 13];
-
-  const portfolioUsdM = PROJECTS.reduce((sum, p) => sum + p.investmentUsdM, 0);
 
   const kpis = [
     {
@@ -104,7 +107,7 @@ export function KpiStrip() {
       value: `US$ ${formatNumber(portfolioUsdM, locale)} M`,
       delta: (
         <p className="text-xs text-muted-foreground">
-          {t("projectsTracked", { count: PROJECTS.length })}
+          {t("projectsTracked", { count: projectCount })}
         </p>
       ),
     },

@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { ReportCard } from "@/components/reports/report-card";
-import { REPORTS } from "@/data/reports";
+import { getStudies } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
 
 type Props = { params: { locale: string } };
 
@@ -16,6 +18,7 @@ export async function generateMetadata({
 export default async function ReportsPage({ params: { locale } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("reports");
+  const studies = await getStudies();
 
   return (
     <div className="container py-12 sm:py-16">
@@ -27,7 +30,7 @@ export default async function ReportsPage({ params: { locale } }: Props) {
       </div>
 
       <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {REPORTS.map((report) => (
+        {studies.map((report) => (
           <ReportCard key={report.id} report={report} />
         ))}
       </div>

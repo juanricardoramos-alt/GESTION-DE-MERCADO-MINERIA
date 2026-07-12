@@ -7,16 +7,15 @@ import { useLocale, useTranslations } from "next-intl";
 import { NewsCard } from "@/components/news/news-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { NEWS } from "@/data/news";
 import { SECTORS } from "@/lib/constants";
 import { pickText } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
-import type { SectorId } from "@/types";
+import type { NewsArticle, SectorId } from "@/types";
 
 type SectorFilter = SectorId | "all";
 
 /** Feed de noticias con filtro por categoría (sector) y búsqueda por texto. */
-export function NewsExplorer() {
+export function NewsExplorer({ articles }: { articles: NewsArticle[] }) {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -25,7 +24,7 @@ export function NewsExplorer() {
 
   const filtered = useMemo(() => {
     const term = query.trim().toLowerCase();
-    return NEWS.filter((article) => {
+    return articles.filter((article) => {
       if (sector !== "all" && article.sector !== sector) return false;
       if (!term) return true;
       const haystack = [
@@ -37,7 +36,7 @@ export function NewsExplorer() {
         .toLowerCase();
       return haystack.includes(term);
     });
-  }, [sector, query, locale]);
+  }, [articles, sector, query, locale]);
 
   const hasFilters = sector !== "all" || query.trim() !== "";
 

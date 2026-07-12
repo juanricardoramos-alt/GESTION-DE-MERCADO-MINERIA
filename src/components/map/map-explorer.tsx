@@ -14,7 +14,6 @@ import { useLocale, useTranslations } from "next-intl";
 import { SectorBadge } from "@/components/shared/sector-badge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { PROJECTS } from "@/data/projects";
 import {
   PROJECT_STATUSES,
   SECTORS,
@@ -97,7 +96,7 @@ function ProjectSheet({ project }: { project: Project }) {
 }
 
 /** Explorador del mapa: filtros + mapa + panel con ficha y listado. */
-export function MapExplorer() {
+export function MapExplorer({ projects }: { projects: Project[] }) {
   const t = useTranslations();
 
   const [sector, setSector] = useState<SectorId | "all">("all");
@@ -107,19 +106,19 @@ export function MapExplorer() {
 
   // Regiones presentes en los datos, en orden norte→sur (orden del arreglo).
   const regions = useMemo(
-    () => Array.from(new Set(PROJECTS.map((p) => p.region))),
-    [],
+    () => Array.from(new Set(projects.map((p) => p.region))),
+    [projects],
   );
 
   const filtered = useMemo(
     () =>
-      PROJECTS.filter(
+      projects.filter(
         (p) =>
           (sector === "all" || p.sector === sector) &&
           (region === "all" || p.region === region) &&
           (status === "all" || p.status === status),
       ),
-    [sector, region, status],
+    [projects, sector, region, status],
   );
 
   const selected = filtered.find((p) => p.id === selectedId) ?? null;

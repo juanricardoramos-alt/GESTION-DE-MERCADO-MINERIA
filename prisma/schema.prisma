@@ -1,0 +1,220 @@
+// Esquema de datos de AndesIntel.
+//
+// Convención bilingüe: los campos de texto que existen en español e inglés
+// se guardan como Json con la forma { "es": string, "en": string }
+// (ver `LocalizedText` en src/types y su schema Zod en src/lib/validation.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Usuarios y suscripciones
+// ---------------------------------------------------------------------------
+
+enum Role {
+  USER
+  ADMIN
+}
+
+/// Nivel de acceso efectivo de un usuario. Se materializa en `User.tier`
+/// y lo mantienen sincronizado los webhooks de pago.
+enum Tier {
+  FREE
+  PROFESIONAL
+  CORPORATIVO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELED
+  INCOMPLETE
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  /// Hash bcrypt; null para cuentas creadas solo con OAuth.
+  passwordHash String?
+  image        String?
+  role         Role      @default(USER)
+  tier         Tier      @default(FREE)
+  emailVerified DateTime?
+
+  subscription Subscription?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tier   Tier
+  status SubscriptionStatus
+
+  /// Pasarela que originó la suscripción ("stripe" hoy; "transbank"/"flow" a futuro).
+  provider               String  @default("stripe")
+  providerCustomerId     String?
+  providerSubscriptionId String? @unique
+  currentPeriodEnd       DateTime?
+  cancelAtPeriodEnd      Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([providerCustomerId])
+}
+
+// ---------------------------------------------------------------------------
+// Contenido
+// ---------------------------------------------------------------------------
+
+enum Sector {
+  mineria
+  energia
+  litio
+  hidrogeno
+  desalinizacion
+}
+
+enum ProjectStatus {
+  operation
+  construction
+  approved
+  evaluation
+}
+
+model Company {
+  id      String   @id @default(cuid())
+  slug    String   @unique
+  name    String   @unique
+  sectors Sector[]
+
+  /// { es, en }
+  industry    Json
+  /// { es, en }
+  description Json
+  /// Lista de { es, en }
+  services    Json
+
+  website   String
+  email     String
+  phone     String
+  city      String
+  employees String
+  founded   Int
+
+  executives Executive[]
+  projects   Project[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([city])
+}
+
+model Executive {
+  id        String  @id @default(cuid())
+  companyId String
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  name  String
+  /// { es, en }
+  role  Json
+  email String
+  /// Posición dentro del perfil de la empresa.
+  order Int    @default(0)
+
+  @@index([companyId])
+}
+
+model Project {
+  id     String        @id @default(cuid())
+  name   String
+  sector Sector
+  status ProjectStatus
+  region String
+
+  /// Nombre del titular tal como se publica (se conserva aunque la empresa
+  /// no esté en el directorio); `companyId` enlaza cuando sí lo está.
+  companyName String
+  companyId   String?
+  company     Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  lat            Float
+  lng            Float
+  /// Inversión estimada en millones de USD.
+  investmentUsdM Float
+  /// Año estimado de puesta en marcha.
+  startYear      Int
+  /// { es, en }
+  description    Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([sector, status])
+  @@index([region])
+  @@index([companyId])
+}
+
+model Article {
+  id      String  @id @default(cuid())
+  /// { es, en }
+  title   Json
+  /// { es, en } — bajada pública del artículo.
+  excerpt Json
+  /// { es, en } — cuerpo completo; solo para miembros cuando `premium` es true.
+  body    Json?
+  sector  Sector
+  source  String
+  date    DateTime
+  readingMinutes Int
+  featured Boolean @default(false)
+  premium  Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date(sort: Desc)])
+  @@index([sector])
+}
+
+model Study {
+  id      String  @id @default(cuid())
+  /// { es, en }
+  title   Json
+  /// { es, en } — resumen; para estudios premium es contenido de miembros.
+  summary Json
+  sector  Sector
+  pages   Int
+  date    DateTime
+  premium Boolean @default(false)
+
+  /// PDF descargable (subido desde el panel admin).
+  fileUrl       String?
+  coverImageUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([date(sort: Desc)])
+  @@index([sector])
+}
+
+model NewsletterSubscriber {
+  id     String @id @default(cuid())
+  email  String @unique
+  locale String @default("es")
+
+  createdAt DateTime @default(now())
+}

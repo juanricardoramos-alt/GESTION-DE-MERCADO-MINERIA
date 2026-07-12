@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { MapExplorer } from "@/components/map/map-explorer";
+import { getProjects } from "@/lib/content";
+
+export const dynamic = "force-dynamic";
 
 type Props = { params: { locale: string } };
 
@@ -15,6 +18,7 @@ export async function generateMetadata({
 export default async function MapPage({ params: { locale } }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("map");
+  const projects = await getProjects();
 
   return (
     <div className="container py-12 sm:py-16">
@@ -25,7 +29,7 @@ export default async function MapPage({ params: { locale } }: Props) {
         <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
       </div>
       <div className="mt-10">
-        <MapExplorer />
+        <MapExplorer projects={projects} />
       </div>
     </div>
   );

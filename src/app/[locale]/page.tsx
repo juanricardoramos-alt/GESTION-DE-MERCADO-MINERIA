@@ -6,20 +6,32 @@ import { Hero } from "@/components/home/hero";
 import { KpiStrip } from "@/components/home/kpi-strip";
 import { SectionsGrid } from "@/components/home/sections-grid";
 import { NewsletterSignup } from "@/components/shared/newsletter-signup";
+import { getFeaturedArticles, getPortfolioStats } from "@/lib/content";
 
-export default function HomePage({
+// El contenido vive en Postgres: render dinámico para reflejar cambios al instante.
+export const dynamic = "force-dynamic";
+
+export default async function HomePage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
   setRequestLocale(locale);
 
+  const [featured, portfolio] = await Promise.all([
+    getFeaturedArticles(3),
+    getPortfolioStats(),
+  ]);
+
   return (
     <>
       <Hero />
-      <KpiStrip />
+      <KpiStrip
+        portfolioUsdM={portfolio.totalInvestmentUsdM}
+        projectCount={portfolio.projectCount}
+      />
       <SectionsGrid />
-      <FeaturedNews />
+      <FeaturedNews articles={featured} />
       <CtaBanner />
       <div id="newsletter" className="container pb-16 sm:pb-20">
         <NewsletterSignup />

@@ -3,14 +3,13 @@ import { useTranslations } from "next-intl";
 import { NewsCard } from "@/components/news/news-card";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/ui/button";
-import { NEWS } from "@/data/news";
 import { Link } from "@/i18n/navigation";
+import type { NewsArticle } from "@/types";
 
-/** Selección editorial: artículos marcados como `featured` en los datos. */
-export function FeaturedNews() {
+/** Selección editorial: artículos marcados como `featured` en la base. */
+export function FeaturedNews({ articles }: { articles: NewsArticle[] }) {
   const t = useTranslations("home.featured");
   const tCommon = useTranslations("common");
-  const featured = NEWS.filter((n) => n.featured).slice(0, 3);
 
   return (
     <section className="border-y bg-slate-50/70">
@@ -25,7 +24,7 @@ export function FeaturedNews() {
           }
         />
         <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {featured.map((article) => (
+          {articles.map((article) => (
             <NewsCard key={article.id} article={article} />
           ))}
         </div>
