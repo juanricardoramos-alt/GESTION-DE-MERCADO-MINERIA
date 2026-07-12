@@ -38,7 +38,10 @@
     "clearFilters": "Clear filters",
     "noResults": "No results for the selected filters.",
     "source": "Source",
-    "sampleDataNote": "Sample data for demonstration purposes."
+    "sampleDataNote": "Sample data for demonstration purposes.",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
   },
   "home": {
     "hero": {

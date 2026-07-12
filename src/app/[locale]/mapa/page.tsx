@@ -2,11 +2,15 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { MapExplorer } from "@/components/map/map-explorer";
-import { getProjects } from "@/lib/content";
+import { filterProjects, getProjectRegions } from "@/lib/content";
+import { firstParam, mapSearchParamsSchema } from "@/lib/validation";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: { locale: string } };
+type Props = {
+  params: { locale: string };
+  searchParams: Record<string, string | string[] | undefined>;
+};
 
 export async function generateMetadata({
   params: { locale },
@@ -15,10 +19,24 @@ export async function generateMetadata({
   return { title: t("title") };
 }
 
-export default async function MapPage({ params: { locale } }: Props) {
+export default async function MapPage({
+  params: { locale },
+  searchParams,
+}: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("map");
-  const projects = await getProjects();
+
+  // Filtros desde la URL (compartibles): la query se resuelve en el servidor.
+  const filters = mapSearchParamsSchema.parse({
+    sector: firstParam(searchParams.sector),
+    region: firstParam(searchParams.region),
+    status: firstParam(searchParams.status),
+  });
+
+  const [projects, regions] = await Promise.all([
+    filterProjects(filters),
+    getProjectRegions(),
+  ]);
 
   return (
     <div className="container py-12 sm:py-16">
@@ -29,7 +47,7 @@ export default async function MapPage({ params: { locale } }: Props) {
         <p className="mt-3 text-muted-foreground">{t("subtitle")}</p>
       </div>
       <div className="mt-10">
-        <MapExplorer projects={projects} />
+        <MapExplorer projects={projects} regions={regions} filters={filters} />
       </div>
     </div>
   );

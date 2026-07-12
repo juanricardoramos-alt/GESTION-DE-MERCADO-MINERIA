@@ -1,10 +1,11 @@
-import type {
-  Article as DbArticle,
-  Company as DbCompany,
-  Executive as DbExecutive,
+import {
   Prisma,
-  Project as DbProject,
-  Study as DbStudy,
+  type Article as DbArticle,
+  type Company as DbCompany,
+  type Executive as DbExecutive,
+  type Project as DbProject,
+  type ProjectStatus,
+  type Study as DbStudy,
 } from "@prisma/client";
 
 import { prisma } from "@/lib/db";
@@ -19,6 +20,7 @@ import type {
   NewsArticle,
   Project,
   Report,
+  SectorId,
 } from "@/types";
 
 /**
@@ -179,6 +181,210 @@ export async function getStudies({
 }): Promise<Report[]> {
   const rows = await prisma.study.findMany({ orderBy: { date: "desc" } });
   return rows.map((row) => mapStudy(row, revealPremium));
+}
+
+// ---------------------------------------------------------------------------
+// Búsqueda y filtros server-side (Fase 6)
+// ---------------------------------------------------------------------------
+
+export interface PagedResult<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pageCount: number;
+}
+
+/**
+ * Convierte el texto del usuario en una tsquery de prefijos ("cobr:* & verd:*"),
+ * para que la búsqueda coincida mientras se escribe, usando el índice GIN.
+ */
+function buildPrefixTsquery(q: string): string | null {
+  const terms = q
+    .split(/\s+/)
+    .map((term) => term.replace(/[^\p{L}\p{N}]/gu, ""))
+    .filter(Boolean)
+    .slice(0, 8);
+  if (terms.length === 0) return null;
+  return terms.map((term) => `${term}:*`).join(" & ");
+}
+
+/** Config regconfig por locale (los índices FTS existen para ambos). */
+function ftsLanguage(locale: "es" | "en"): string {
+  return locale === "en" ? "english" : "spanish";
+}
+
+/** Expresión indexada por Article_fts_{es,en} — mantener en sincronía. */
+function articleVector(locale: "es" | "en"): Prisma.Sql {
+  return locale === "en"
+    ? Prisma.sql`to_tsvector('english', coalesce("title"->>'en','') || ' ' || coalesce("excerpt"->>'en','') || ' ' || coalesce("source",''))`
+    : Prisma.sql`to_tsvector('spanish', coalesce("title"->>'es','') || ' ' || coalesce("excerpt"->>'es','') || ' ' || coalesce("source",''))`;
+}
+
+/** Expresión indexada por Company_fts_{es,en} — mantener en sincronía. */
+function companyVector(locale: "es" | "en"): Prisma.Sql {
+  return locale === "en"
+    ? Prisma.sql`to_tsvector('english', "name" || ' ' || "city" || ' ' || coalesce("industry"->>'en','') || ' ' || coalesce("description"->>'en','') || ' ' || coalesce("services"::text,''))`
+    : Prisma.sql`to_tsvector('spanish', "name" || ' ' || "city" || ' ' || coalesce("industry"->>'es','') || ' ' || coalesce("description"->>'es','') || ' ' || coalesce("services"::text,''))`;
+}
+
+export interface ArticleSearchParams {
+  locale: "es" | "en";
+  sector?: SectorId;
+  q?: string;
+  page: number;
+  pageSize: number;
+}
+
+export async function searchArticles(
+  params: ArticleSearchParams,
+): Promise<PagedResult<NewsArticle>> {
+  const { locale, sector, q, page, pageSize } = params;
+  const tsquery = q ? buildPrefixTsquery(q) : null;
+
+  if (!tsquery) {
+    const where = sector ? { sector } : {};
+    const [total, rows] = await Promise.all([
+      prisma.article.count({ where }),
+      prisma.article.findMany({
+        where,
+        orderBy: { date: "desc" },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+      }),
+    ]);
+    return paged(rows.map(mapArticle), total, page, pageSize);
+  }
+
+  const lang = ftsLanguage(locale);
+  const vector = articleVector(locale);
+  const query = Prisma.sql`to_tsquery(${lang}::regconfig, ${tsquery})`;
+  const sectorCond = sector
+    ? Prisma.sql`AND "sector" = ${sector}::"Sector"`
+    : Prisma.empty;
+
+  const [rows, countRows] = await Promise.all([
+    prisma.$queryRaw<DbArticle[]>(Prisma.sql`
+      SELECT * FROM "Article"
+      WHERE ${vector} @@ ${query} ${sectorCond}
+      ORDER BY ts_rank(${vector}, ${query}) DESC, "date" DESC
+      LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+    `),
+    prisma.$queryRaw<Array<{ count: bigint }>>(Prisma.sql`
+      SELECT count(*)::bigint AS count FROM "Article"
+      WHERE ${vector} @@ ${query} ${sectorCond}
+    `),
+  ]);
+  const total = Number(countRows[0]?.count ?? 0);
+  return paged(rows.map(mapArticle), total, page, pageSize);
+}
+
+export interface CompanySearchParams {
+  locale: "es" | "en";
+  sector?: SectorId;
+  q?: string;
+  page: number;
+  pageSize: number;
+}
+
+export async function searchCompanies(
+  params: CompanySearchParams,
+): Promise<PagedResult<Company>> {
+  const { locale, sector, q, page, pageSize } = params;
+  const tsquery = q ? buildPrefixTsquery(q) : null;
+
+  if (!tsquery) {
+    const where = sector ? { sectors: { has: sector } } : {};
+    const [total, rows] = await Promise.all([
+      prisma.company.count({ where }),
+      prisma.company.findMany({
+        where,
+        orderBy: { name: "asc" },
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        include: { executives: { orderBy: { order: "asc" } } },
+      }),
+    ]);
+    return paged(rows.map(mapCompany), total, page, pageSize);
+  }
+
+  const lang = ftsLanguage(locale);
+  const vector = companyVector(locale);
+  const query = Prisma.sql`to_tsquery(${lang}::regconfig, ${tsquery})`;
+  const sectorCond = sector
+    ? Prisma.sql`AND ${sector}::"Sector" = ANY("sectors")`
+    : Prisma.empty;
+
+  // El ranking sale de SQL crudo; los ejecutivos, del include de Prisma.
+  const [idRows, countRows] = await Promise.all([
+    prisma.$queryRaw<Array<{ id: string }>>(Prisma.sql`
+      SELECT id FROM "Company"
+      WHERE ${vector} @@ ${query} ${sectorCond}
+      ORDER BY ts_rank(${vector}, ${query}) DESC, "name" ASC
+      LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
+    `),
+    prisma.$queryRaw<Array<{ count: bigint }>>(Prisma.sql`
+      SELECT count(*)::bigint AS count FROM "Company"
+      WHERE ${vector} @@ ${query} ${sectorCond}
+    `),
+  ]);
+
+  const ids = idRows.map((row) => row.id);
+  const rows = await prisma.company.findMany({
+    where: { id: { in: ids } },
+    include: { executives: { orderBy: { order: "asc" } } },
+  });
+  const byId = new Map(rows.map((row) => [row.id, row]));
+  const ordered = ids
+    .map((id) => byId.get(id))
+    .filter((row): row is NonNullable<typeof row> => row !== undefined);
+
+  const total = Number(countRows[0]?.count ?? 0);
+  return paged(ordered.map(mapCompany), total, page, pageSize);
+}
+
+export interface ProjectFilterParams {
+  sector?: SectorId;
+  region?: string;
+  status?: ProjectStatus;
+}
+
+/** Filtro del mapa: sin paginación (los marcadores se muestran completos). */
+export async function filterProjects(
+  params: ProjectFilterParams,
+): Promise<Project[]> {
+  const rows = await prisma.project.findMany({
+    where: {
+      ...(params.sector ? { sector: params.sector } : {}),
+      ...(params.region ? { region: params.region } : {}),
+      ...(params.status ? { status: params.status } : {}),
+    },
+    orderBy: { name: "asc" },
+  });
+  return rows.map(mapProject);
+}
+
+/** Regiones presentes en la cartera (para el select del mapa). */
+export async function getProjectRegions(): Promise<string[]> {
+  const rows = await prisma.project.findMany({
+    distinct: ["region"],
+    select: { region: true },
+    orderBy: { region: "asc" },
+  });
+  return rows.map((row) => row.region);
+}
+
+function paged<T>(
+  items: T[],
+  total: number,
+  page: number,
+  pageSize: number,
+): PagedResult<T> {
+  return {
+    items,
+    total,
+    page,
+    pageCount: Math.max(1, Math.ceil(total / pageSize)),
+  };
 }
 
 /** Agregados de cartera para los KPIs de portada. */

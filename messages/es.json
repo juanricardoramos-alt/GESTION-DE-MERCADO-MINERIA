@@ -38,7 +38,10 @@
     "clearFilters": "Limpiar filtros",
     "noResults": "Sin resultados para los filtros seleccionados.",
     "source": "Fuente",
-    "sampleDataNote": "Datos de ejemplo con fines de demostración."
+    "sampleDataNote": "Datos de ejemplo con fines de demostración.",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "pageOf": "Página {page} de {total}"
   },
   "home": {
     "hero": {

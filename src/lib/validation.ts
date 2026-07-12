@@ -1,5 +1,10 @@
 import { z } from "zod";
 
+/** Normaliza un searchParam de Next (string | string[] | undefined). */
+export function firstParam(value: string | string[] | undefined): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}
+
 /**
  * Schemas Zod compartidos. Toda entrada externa (formularios, API routes,
  * campos Json de la base) se valida con schemas de este módulo.
@@ -19,6 +24,40 @@ export const emailSchema = z.string().trim().toLowerCase().email();
 export const newsletterSubscribeSchema = z.object({
   email: emailSchema,
   locale: z.enum(["es", "en"]).default("es"),
+});
+
+/**
+ * SearchParams de las páginas con filtros server-side. `.catch()` hace que
+ * un parámetro basura degrade al valor por defecto en vez de romper la página.
+ */
+const sectorParam = z
+  .enum(["mineria", "energia", "litio", "hidrogeno", "desalinizacion"])
+  .optional()
+  .catch(undefined);
+
+const pageParam = z.coerce.number().int().min(1).max(1000).catch(1).default(1);
+
+const queryParam = z
+  .string()
+  .trim()
+  .max(120)
+  .optional()
+  .catch(undefined)
+  .transform((value) => (value ? value : undefined));
+
+export const listSearchParamsSchema = z.object({
+  sector: sectorParam,
+  q: queryParam,
+  page: pageParam,
+});
+
+export const mapSearchParamsSchema = z.object({
+  sector: sectorParam,
+  region: queryParam,
+  status: z
+    .enum(["operation", "construction", "approved", "evaluation"])
+    .optional()
+    .catch(undefined),
 });
 
 /** Credenciales de inicio de sesión (provider credentials de Auth.js). */

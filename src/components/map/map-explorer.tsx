@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 import {
   Banknote,
@@ -14,6 +14,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { SectorBadge } from "@/components/shared/sector-badge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import {
   PROJECT_STATUSES,
   SECTORS,
@@ -23,6 +24,13 @@ import {
 import { formatUsdM, pickText } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { Project, ProjectStatus, SectorId } from "@/types";
+
+/** Filtros activos del mapa (vienen de la URL, ya validados en la página). */
+export interface MapFilters {
+  sector?: SectorId;
+  region?: string;
+  status?: ProjectStatus;
+}
 
 // Leaflet accede a `window`: el mapa solo se renderiza en el cliente.
 const ProjectMap = dynamic(
@@ -96,31 +104,35 @@ function ProjectSheet({ project }: { project: Project }) {
 }
 
 /** Explorador del mapa: filtros + mapa + panel con ficha y listado. */
-export function MapExplorer({ projects }: { projects: Project[] }) {
+export function MapExplorer({
+  projects,
+  regions,
+  filters,
+}: {
+  /** Proyectos ya filtrados por el servidor según la URL. */
+  projects: Project[];
+  regions: string[];
+  filters: MapFilters;
+}) {
   const t = useTranslations();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const [sector, setSector] = useState<SectorId | "all">("all");
-  const [region, setRegion] = useState<string>("all");
-  const [status, setStatus] = useState<ProjectStatus | "all">("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  // Regiones presentes en los datos, en orden norte→sur (orden del arreglo).
-  const regions = useMemo(
-    () => Array.from(new Set(projects.map((p) => p.region))),
-    [projects],
-  );
+  /** Cambia un filtro empujando la URL (estado compartible, back/forward). */
+  function applyFilter(key: "sector" | "region" | "status", value: string) {
+    const params = new URLSearchParams();
+    const next = { ...filters, [key]: value === "all" ? undefined : value };
+    if (next.sector) params.set("sector", next.sector);
+    if (next.region) params.set("region", next.region);
+    if (next.status) params.set("status", next.status);
+    setSelectedId(null);
+    const qs = params.toString();
+    router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
 
-  const filtered = useMemo(
-    () =>
-      projects.filter(
-        (p) =>
-          (sector === "all" || p.sector === sector) &&
-          (region === "all" || p.region === region) &&
-          (status === "all" || p.status === status),
-      ),
-    [projects, sector, region, status],
-  );
-
+  const filtered = projects;
   const selected = filtered.find((p) => p.id === selectedId) ?? null;
 
   return (
@@ -130,11 +142,8 @@ export function MapExplorer({ projects }: { projects: Project[] }) {
         <label className="flex flex-col gap-1.5 text-xs font-medium text-muted-foreground">
           {t("map.filterSector")}
           <select
-            value={sector}
-            onChange={(e) => {
-              setSector(e.target.value as SectorId | "all");
-              setSelectedId(null);
-            }}
+            value={filters.sector ?? "all"}
+            onChange={(e) => applyFilter("sector", e.target.value)}
             className={SELECT_CLASSES}
           >
             <option value="all">{t("sectors.all")}</option>
@@ -149,11 +158,8 @@ export function MapExplorer({ projects }: { projects: Project[] }) {
         <label className="flex flex-col gap-1.5 text-xs font-medium text-muted-foreground">
           {t("map.filterRegion")}
           <select
-            value={region}
-            onChange={(e) => {
-              setRegion(e.target.value);
-              setSelectedId(null);
-            }}
+            value={filters.region ?? "all"}
+            onChange={(e) => applyFilter("region", e.target.value)}
             className={SELECT_CLASSES}
           >
             <option value="all">{t("map.allRegions")}</option>
@@ -168,11 +174,8 @@ export function MapExplorer({ projects }: { projects: Project[] }) {
         <label className="flex flex-col gap-1.5 text-xs font-medium text-muted-foreground">
           {t("map.filterStatus")}
           <select
-            value={status}
-            onChange={(e) => {
-              setStatus(e.target.value as ProjectStatus | "all");
-              setSelectedId(null);
-            }}
+            value={filters.status ?? "all"}
+            onChange={(e) => applyFilter("status", e.target.value)}
             className={SELECT_CLASSES}
           >
             <option value="all">{t("map.allStatuses")}</option>

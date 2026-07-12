@@ -100,6 +100,17 @@ re-consultando el tier en la base (`viewerHasTier`, `src/lib/access.ts`).
 El cliente solo recibe metadatos públicos + el CTA de membresía; no hay
 contenido oculto con CSS ni difuminado.
 
+## Búsqueda y filtros
+
+Los filtros de `/noticias`, `/empresas` y `/mapa` se resuelven en el
+servidor y viven en la URL (`?sector=&q=&page=` / `?sector=&region=&status=`),
+por lo que son compartibles y navegables con atrás/adelante. La búsqueda de
+texto usa full-text de Postgres (tsquery de prefijos + `ts_rank`) con
+índices GIN por idioma sobre artículos y empresas
+(`prisma/migrations/*_search_indexes`), más un índice GIN para el filtro
+de sector de empresas. Los searchParams se validan con Zod: parámetros
+inválidos degradan a los valores por defecto.
+
 ## Convención de contenido bilingüe
 
 Los campos de texto con variante es/en se guardan en Postgres como columnas
