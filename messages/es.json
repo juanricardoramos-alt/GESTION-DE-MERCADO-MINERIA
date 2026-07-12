@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "title": "AndesIntel — Inteligencia de mercados B2B",
+    "description": "Plataforma de inteligencia de mercados para minería, energía, litio, hidrógeno verde y desalinización en Chile: noticias, proyectos, empresas, datos y estudios."
+  },
+  "nav": {
+    "home": "Inicio",
+    "news": "Noticias",
+    "map": "Mapa de proyectos",
+    "directory": "Empresas",
+    "analytics": "Análisis",
+    "reports": "Estudios",
+    "membership": "Membresía",
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta"
+  },
+  "sectors": {
+    "all": "Todos los sectores",
+    "mineria": "Minería",
+    "energia": "Energía",
+    "litio": "Litio",
+    "hidrogeno": "Hidrógeno",
+    "desalinizacion": "Desalinización"
+  },
+  "status": {
+    "operation": "En operación",
+    "construction": "En construcción",
+    "approved": "Aprobado",
+    "evaluation": "En evaluación"
+  },
+  "common": {
+    "readMore": "Leer más",
+    "viewAll": "Ver todo",
+    "minRead": "{minutes} min de lectura",
+    "membersOnly": "Exclusivo para miembros",
+    "search": "Buscar",
+    "clearFilters": "Limpiar filtros",
+    "noResults": "Sin resultados para los filtros seleccionados.",
+    "source": "Fuente",
+    "sampleDataNote": "Datos de ejemplo con fines de demostración."
+  },
+  "home": {
+    "hero": {
+      "badge": "Inteligencia de mercados para industrias estratégicas",
+      "title": "Decisiones B2B con datos, no con intuición",
+      "titleHighlight": "minería, energía, litio, hidrógeno y desalinización",
+      "subtitle": "Noticias curadas, cartera de proyectos georreferenciada, directorio de empresas y dashboards de mercado en una sola plataforma de suscripción, construida para equipos comerciales y de estrategia.",
+      "ctaPrimary": "Conocer planes",
+      "ctaSecondary": "Explorar el mapa de proyectos"
+    },
+    "kpis": {
+      "title": "El mercado hoy",
+      "updated": "Actualizado al {date}",
+      "copperPrice": "Precio del cobre",
+      "copperPriceUnit": "US$/lb · BML",
+      "copperProduction": "Producción de cobre",
+      "copperProductionUnit": "kt · último mes",
+      "lithiumPrice": "Carbonato de litio",
+      "lithiumPriceUnit": "US$/t · CIF Asia",
+      "portfolio": "Cartera de proyectos",
+      "portfolioUnit": "inversión catastrada",
+      "vsPrevMonth": "vs. mes anterior",
+      "vsPrevYear": "vs. año anterior",
+      "projectsTracked": "{count} proyectos monitoreados"
+    },
+    "sections": {
+      "title": "Todo el ciclo de inteligencia comercial",
+      "subtitle": "Cinco módulos integrados para detectar oportunidades antes que el resto del mercado.",
+      "news": {
+        "title": "Noticias y actualidad",
+        "description": "Feed diario curado por sector, con búsqueda y filtros por categoría."
+      },
+      "map": {
+        "title": "Mapa de proyectos",
+        "description": "Cartera de inversiones georreferenciada con estado, montos y titulares."
+      },
+      "directory": {
+        "title": "Directorio de empresas",
+        "description": "Base buscable de compañías y ejecutivos con perfiles y contactos."
+      },
+      "analytics": {
+        "title": "Análisis de mercado",
+        "description": "Producción, precios, proyecciones y energía en dashboards interactivos."
+      },
+      "reports": {
+        "title": "Estudios y reportes",
+        "description": "Biblioteca de informes sectoriales, con contenido exclusivo para miembros."
+      }
+    },
+    "featured": {
+      "title": "Lo último del sector",
+      "subtitle": "Selección editorial de la semana"
+    },
+    "cta": {
+      "title": "Convierta información en ventaja comercial",
+      "subtitle": "Acceda a la plataforma completa con una membresía anual o mensual. Sin permanencia mínima.",
+      "button": "Ver planes de membresía",
+      "secondary": "Suscribirse al boletín gratuito"
+    }
+  },
+  "news": {
+    "title": "Noticias y actualidad",
+    "subtitle": "Cobertura curada de las industrias estratégicas: inversiones, permisos, tecnología y mercado.",
+    "searchPlaceholder": "Buscar por título, empresa o palabra clave…",
+    "resultsCount": "{count, plural, one {# artículo} other {# artículos}}"
+  },
+  "map": {
+    "title": "Mapa de proyectos",
+    "subtitle": "Cartera de inversiones en Chile, georreferenciada y actualizada. Haga clic en un marcador para ver la ficha del proyecto.",
+    "filterSector": "Sector",
+    "filterRegion": "Región",
+    "filterStatus": "Estado",
+    "allRegions": "Todas las regiones",
+    "allStatuses": "Todos los estados",
+    "legend": "Estado del proyecto",
+    "projectList": "Proyectos ({count})",
+    "selectHint": "Seleccione un proyecto en el mapa o en la lista para ver su ficha.",
+    "sheet": {
+      "company": "Titular",
+      "investment": "Inversión estimada",
+      "region": "Región",
+      "startYear": "Puesta en marcha",
+      "status": "Estado"
+    }
+  },
+  "directory": {
+    "title": "Directorio de empresas",
+    "subtitle": "Empresas y ejecutivos de las industrias estratégicas, con perfiles, servicios y datos de contacto.",
+    "searchPlaceholder": "Buscar empresa, rubro o servicio…",
+    "resultsCount": "{count, plural, one {# empresa} other {# empresas}}",
+    "viewProfile": "Ver perfil",
+    "employees": "Colaboradores",
+    "founded": "Fundada",
+    "city": "Ciudad",
+    "website": "Sitio web",
+    "contactTitle": "Contacto",
+    "servicesTitle": "Servicios",
+    "executivesTitle": "Ejecutivos clave",
+    "projectsTitle": "Proyectos asociados",
+    "back": "Volver al directorio"
+  },
+  "analytics": {
+    "title": "Análisis de mercado",
+    "subtitle": "Series de producción, precios, proyecciones y energía. Ajuste el rango temporal y el sector para explorar los datos.",
+    "range12": "12 meses",
+    "range24": "24 meses",
+    "rangeAll": "Todo",
+    "copper": "Cobre",
+    "lithium": "Litio",
+    "production": {
+      "title": "Producción mensual",
+      "subtitle": "Cobre (kt) y litio (kt LCE), Chile",
+      "copperSeries": "Cobre (kt)",
+      "lithiumSeries": "Litio (kt LCE)"
+    },
+    "prices": {
+      "title": "Precios de referencia",
+      "subtitle": "Cobre BML (US$/lb) y carbonato de litio CIF Asia (US$/t)",
+      "copperUnit": "US$/lb",
+      "lithiumUnit": "US$/t"
+    },
+    "projections": {
+      "title": "Proyección de producción a 2030",
+      "subtitle": "Escenario base — Chile",
+      "note": "Proyección"
+    },
+    "energy": {
+      "title": "Generación eléctrica por fuente",
+      "subtitle": "Sistema Eléctrico Nacional, TWh por año",
+      "solar": "Solar",
+      "wind": "Eólica",
+      "hydro": "Hidroeléctrica",
+      "thermal": "Térmica"
+    },
+    "sourceNote": "Series de ejemplo elaboradas para demostración; no constituyen datos oficiales."
+  },
+  "reports": {
+    "title": "Estudios y reportes",
+    "subtitle": "Biblioteca de informes sectoriales elaborados por nuestro equipo de análisis.",
+    "pages": "{count} páginas",
+    "open": "Acceso abierto",
+    "premium": "Exclusivo miembros",
+    "download": "Descargar PDF",
+    "unlock": "Desbloquear con membresía",
+    "paywallHint": "Este estudio está disponible para los planes Profesional y Corporativo."
+  },
+  "membership": {
+    "title": "Planes de membresía",
+    "subtitle": "Elija el plan que se ajusta a su equipo. Todos incluyen el boletín semanal y acceso al feed de noticias.",
+    "perMonth": "/mes",
+    "free": "Gratis",
+    "popular": "Más elegido",
+    "cta": "Comenzar ahora",
+    "ctaFree": "Crear cuenta gratuita",
+    "note": "Precios en USD, facturación mensual. Los planes pagados pueden cancelarse en cualquier momento.",
+    "plans": {
+      "basico": {
+        "name": "Básico",
+        "description": "Para profesionales que quieren seguir la actualidad del sector.",
+        "features": [
+          "Feed de noticias con filtros",
+          "Boletín semanal por correo",
+          "Acceso al mapa de proyectos (vista general)",
+          "3 estudios abiertos por mes"
+        ]
+      },
+      "profesional": {
+        "name": "Profesional",
+        "description": "Para equipos comerciales que necesitan datos accionables.",
+        "features": [
+          "Todo lo del plan Básico",
+          "Fichas completas de proyectos e inversiones",
+          "Directorio de empresas y ejecutivos",
+          "Dashboards de mercado interactivos",
+          "Biblioteca completa de estudios",
+          "Alertas por sector y región"
+        ]
+      },
+      "corporativo": {
+        "name": "Corporativo",
+        "description": "Para organizaciones que integran inteligencia en su estrategia.",
+        "features": [
+          "Todo lo del plan Profesional",
+          "Hasta 15 usuarios",
+          "Reportes a medida trimestrales",
+          "Acceso anticipado a estudios",
+          "Ejecutivo de cuenta dedicado",
+          "Exportación de datos (CSV/API)"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "demoNotice": "Interfaz de demostración: el registro y el inicio de sesión aún no están conectados a un backend.",
+    "login": {
+      "title": "Iniciar sesión",
+      "subtitle": "Acceda a su cuenta de AndesIntel",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Entrar",
+      "forgot": "¿Olvidó su contraseña?",
+      "noAccount": "¿No tiene cuenta?",
+      "signupLink": "Cree una aquí",
+      "success": "Sesión de demostración iniciada. ¡Bienvenido!"
+    },
+    "signup": {
+      "title": "Crear cuenta",
+      "subtitle": "Comience con el plan Básico gratuito",
+      "name": "Nombre completo",
+      "company": "Empresa",
+      "email": "Correo corporativo",
+      "password": "Contraseña",
+      "submit": "Crear cuenta",
+      "haveAccount": "¿Ya tiene cuenta?",
+      "loginLink": "Inicie sesión",
+      "success": "Cuenta de demostración creada. Revise su correo para confirmar (simulado)."
+    }
+  },
+  "newsletter": {
+    "title": "Boletín semanal del sector",
+    "subtitle": "Cada lunes: las 5 noticias clave, movimientos de proyectos y un indicador comentado. Gratis, directo a su correo.",
+    "placeholder": "su-correo@empresa.com",
+    "button": "Suscribirme",
+    "success": "¡Listo! Le enviamos un correo de confirmación (simulado).",
+    "privacy": "Sin spam. Puede darse de baja cuando quiera."
+  },
+  "footer": {
+    "tagline": "Inteligencia de mercados B2B para minería, energía, litio, hidrógeno y desalinización.",
+    "platform": "Plataforma",
+    "company": "Compañía",
+    "about": "Quiénes somos",
+    "methodology": "Metodología",
+    "careers": "Trabaja con nosotros",
+    "contact": "Contacto",
+    "legal": "Términos y privacidad",
+    "rights": "© {year} AndesIntel SpA. Todos los derechos reservados.",
+    "disclaimer": "Plataforma de demostración con datos de ejemplo."
+  }
+}

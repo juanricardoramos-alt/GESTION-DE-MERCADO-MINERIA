@@ -1,0 +1,279 @@
+{
+  "meta": {
+    "title": "AndesIntel — B2B Market Intelligence",
+    "description": "Market intelligence platform for mining, energy, lithium, green hydrogen and desalination in Chile: news, projects, companies, data and research."
+  },
+  "nav": {
+    "home": "Home",
+    "news": "News",
+    "map": "Project map",
+    "directory": "Companies",
+    "analytics": "Analytics",
+    "reports": "Research",
+    "membership": "Membership",
+    "login": "Sign in",
+    "signup": "Create account"
+  },
+  "sectors": {
+    "all": "All sectors",
+    "mineria": "Mining",
+    "energia": "Energy",
+    "litio": "Lithium",
+    "hidrogeno": "Hydrogen",
+    "desalinizacion": "Desalination"
+  },
+  "status": {
+    "operation": "In operation",
+    "construction": "Under construction",
+    "approved": "Approved",
+    "evaluation": "Under review"
+  },
+  "common": {
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "minRead": "{minutes} min read",
+    "membersOnly": "Members only",
+    "search": "Search",
+    "clearFilters": "Clear filters",
+    "noResults": "No results for the selected filters.",
+    "source": "Source",
+    "sampleDataNote": "Sample data for demonstration purposes."
+  },
+  "home": {
+    "hero": {
+      "badge": "Market intelligence for strategic industries",
+      "title": "B2B decisions driven by data, not gut feeling",
+      "titleHighlight": "mining, energy, lithium, hydrogen and desalination",
+      "subtitle": "Curated news, a georeferenced project pipeline, a company directory and market dashboards in a single subscription platform, built for commercial and strategy teams.",
+      "ctaPrimary": "See plans",
+      "ctaSecondary": "Explore the project map"
+    },
+    "kpis": {
+      "title": "The market today",
+      "updated": "Updated as of {date}",
+      "copperPrice": "Copper price",
+      "copperPriceUnit": "US$/lb · LME",
+      "copperProduction": "Copper production",
+      "copperProductionUnit": "kt · latest month",
+      "lithiumPrice": "Lithium carbonate",
+      "lithiumPriceUnit": "US$/t · CIF Asia",
+      "portfolio": "Project pipeline",
+      "portfolioUnit": "tracked investment",
+      "vsPrevMonth": "vs. previous month",
+      "vsPrevYear": "vs. previous year",
+      "projectsTracked": "{count} projects tracked"
+    },
+    "sections": {
+      "title": "The full commercial intelligence cycle",
+      "subtitle": "Five integrated modules to spot opportunities before the rest of the market.",
+      "news": {
+        "title": "News & current affairs",
+        "description": "Daily curated feed by sector, with search and category filters."
+      },
+      "map": {
+        "title": "Project map",
+        "description": "Georeferenced investment pipeline with status, amounts and owners."
+      },
+      "directory": {
+        "title": "Company directory",
+        "description": "Searchable database of companies and executives with profiles and contacts."
+      },
+      "analytics": {
+        "title": "Market analytics",
+        "description": "Production, prices, projections and energy in interactive dashboards."
+      },
+      "reports": {
+        "title": "Research & reports",
+        "description": "Library of sector reports, with members-only exclusive content."
+      }
+    },
+    "featured": {
+      "title": "Latest from the industry",
+      "subtitle": "This week's editorial selection"
+    },
+    "cta": {
+      "title": "Turn information into commercial advantage",
+      "subtitle": "Get full platform access with a monthly or annual membership. No lock-in.",
+      "button": "See membership plans",
+      "secondary": "Subscribe to the free newsletter"
+    }
+  },
+  "news": {
+    "title": "News & current affairs",
+    "subtitle": "Curated coverage of strategic industries: investments, permits, technology and markets.",
+    "searchPlaceholder": "Search by headline, company or keyword…",
+    "resultsCount": "{count, plural, one {# article} other {# articles}}"
+  },
+  "map": {
+    "title": "Project map",
+    "subtitle": "Chile's investment pipeline, georeferenced and up to date. Click a marker to open the project sheet.",
+    "filterSector": "Sector",
+    "filterRegion": "Region",
+    "filterStatus": "Status",
+    "allRegions": "All regions",
+    "allStatuses": "All statuses",
+    "legend": "Project status",
+    "projectList": "Projects ({count})",
+    "selectHint": "Select a project on the map or in the list to see its details.",
+    "sheet": {
+      "company": "Owner",
+      "investment": "Estimated investment",
+      "region": "Region",
+      "startYear": "Start-up",
+      "status": "Status"
+    }
+  },
+  "directory": {
+    "title": "Company directory",
+    "subtitle": "Companies and executives across strategic industries, with profiles, services and contact details.",
+    "searchPlaceholder": "Search company, industry or service…",
+    "resultsCount": "{count, plural, one {# company} other {# companies}}",
+    "viewProfile": "View profile",
+    "employees": "Employees",
+    "founded": "Founded",
+    "city": "City",
+    "website": "Website",
+    "contactTitle": "Contact",
+    "servicesTitle": "Services",
+    "executivesTitle": "Key executives",
+    "projectsTitle": "Related projects",
+    "back": "Back to directory"
+  },
+  "analytics": {
+    "title": "Market analytics",
+    "subtitle": "Production, price, projection and energy series. Adjust the time range and sector to explore the data.",
+    "range12": "12 months",
+    "range24": "24 months",
+    "rangeAll": "All",
+    "copper": "Copper",
+    "lithium": "Lithium",
+    "production": {
+      "title": "Monthly production",
+      "subtitle": "Copper (kt) and lithium (kt LCE), Chile",
+      "copperSeries": "Copper (kt)",
+      "lithiumSeries": "Lithium (kt LCE)"
+    },
+    "prices": {
+      "title": "Reference prices",
+      "subtitle": "LME copper (US$/lb) and lithium carbonate CIF Asia (US$/t)",
+      "copperUnit": "US$/lb",
+      "lithiumUnit": "US$/t"
+    },
+    "projections": {
+      "title": "Production outlook to 2030",
+      "subtitle": "Base scenario — Chile",
+      "note": "Projection"
+    },
+    "energy": {
+      "title": "Power generation by source",
+      "subtitle": "National Electric System, TWh per year",
+      "solar": "Solar",
+      "wind": "Wind",
+      "hydro": "Hydro",
+      "thermal": "Thermal"
+    },
+    "sourceNote": "Sample series prepared for demonstration; not official data."
+  },
+  "reports": {
+    "title": "Research & reports",
+    "subtitle": "Library of sector reports produced by our analysis team.",
+    "pages": "{count} pages",
+    "open": "Open access",
+    "premium": "Members only",
+    "download": "Download PDF",
+    "unlock": "Unlock with membership",
+    "paywallHint": "This report is available on the Professional and Corporate plans."
+  },
+  "membership": {
+    "title": "Membership plans",
+    "subtitle": "Pick the plan that fits your team. All include the weekly newsletter and access to the news feed.",
+    "perMonth": "/mo",
+    "free": "Free",
+    "popular": "Most popular",
+    "cta": "Get started",
+    "ctaFree": "Create free account",
+    "note": "Prices in USD, billed monthly. Paid plans can be cancelled anytime.",
+    "plans": {
+      "basico": {
+        "name": "Basic",
+        "description": "For professionals who want to follow industry news.",
+        "features": [
+          "News feed with filters",
+          "Weekly email newsletter",
+          "Project map access (overview)",
+          "3 open reports per month"
+        ]
+      },
+      "profesional": {
+        "name": "Professional",
+        "description": "For commercial teams that need actionable data.",
+        "features": [
+          "Everything in Basic",
+          "Full project and investment sheets",
+          "Company and executive directory",
+          "Interactive market dashboards",
+          "Full research library",
+          "Sector and region alerts"
+        ]
+      },
+      "corporativo": {
+        "name": "Corporate",
+        "description": "For organizations embedding intelligence into strategy.",
+        "features": [
+          "Everything in Professional",
+          "Up to 15 users",
+          "Quarterly custom reports",
+          "Early access to research",
+          "Dedicated account executive",
+          "Data export (CSV/API)"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "demoNotice": "Demo interface: sign-up and sign-in are not connected to a backend yet.",
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Access your AndesIntel account",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "forgot": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Create one here",
+      "success": "Demo session started. Welcome!"
+    },
+    "signup": {
+      "title": "Create account",
+      "subtitle": "Start with the free Basic plan",
+      "name": "Full name",
+      "company": "Company",
+      "email": "Work email",
+      "password": "Password",
+      "submit": "Create account",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "success": "Demo account created. Check your inbox to confirm (simulated)."
+    }
+  },
+  "newsletter": {
+    "title": "Weekly industry newsletter",
+    "subtitle": "Every Monday: the 5 key stories, project moves and one indicator explained. Free, straight to your inbox.",
+    "placeholder": "your-email@company.com",
+    "button": "Subscribe",
+    "success": "Done! We sent you a confirmation email (simulated).",
+    "privacy": "No spam. Unsubscribe anytime."
+  },
+  "footer": {
+    "tagline": "B2B market intelligence for mining, energy, lithium, hydrogen and desalination.",
+    "platform": "Platform",
+    "company": "Company",
+    "about": "About us",
+    "methodology": "Methodology",
+    "careers": "Careers",
+    "contact": "Contact",
+    "legal": "Terms & privacy",
+    "rights": "© {year} AndesIntel SpA. All rights reserved.",
+    "disclaimer": "Demo platform with sample data."
+  }
+}
