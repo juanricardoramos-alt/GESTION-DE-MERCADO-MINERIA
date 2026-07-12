@@ -70,6 +70,27 @@ La sesión es JWT y lleva `role` (USER/ADMIN) y `tier`
 protegidas (`/analisis` exige plan pagado, `/admin` exige rol ADMIN) y la
 autorización fina re-consulta la base en el servidor (`src/lib/access.ts`).
 
+## Pagos
+
+La capa de pagos está abstraída detrás de `PaymentProvider`
+(`src/lib/payments/provider.ts`); Stripe es la implementación activa y
+Transbank/Flow pueden sumarse implementando la interfaz y registrándola en
+`src/lib/payments/index.ts` (selección por `PAYMENT_PROVIDER`).
+
+- **Checkout**: `POST /api/billing/checkout` crea la sesión de Stripe
+  Checkout para Profesional (US$ 49) o Corporativo (US$ 199).
+- **Webhook**: `POST /api/webhooks/stripe` verifica la firma y sincroniza
+  `Subscription` + `User.tier` en alta, renovación, cambio de plan, pago
+  fallido (PAST_DUE conserva acceso como gracia) y cancelación (vuelve a
+  FREE). En local: `stripe listen --forward-to
+  localhost:3000/api/webhooks/stripe`.
+- **Portal**: `POST /api/billing/portal` abre el Billing Portal para
+  gestionar medio de pago, facturas y baja; la página `/cuenta` muestra el
+  estado de la suscripción.
+
+Sin credenciales de Stripe la app funciona igual y los endpoints de pago
+responden `503 payments_unconfigured`.
+
 ## Paywall server-side
 
 El contenido premium **no sale del servidor** si el usuario no tiene el plan

@@ -47,13 +47,10 @@ export default auth((request) => {
     return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
-  // El middleware corta el paso con el tier del JWT (puede ir un paso atrás
-  // tras un cambio de plan); la autorización fina re-consulta la base en el
-  // Server Component (src/lib/access.ts).
-  if (matches(path, PREMIUM_PREFIXES) && user?.tier === "FREE") {
-    return NextResponse.redirect(new URL(`/${locale}/membresia`, request.url));
-  }
-
+  // Nota: el middleware solo exige sesión en las rutas premium. El gate por
+  // tier vive en el Server Component con dato fresco de la base
+  // (src/lib/access.ts): el claim del JWT quedaría desactualizado justo
+  // después de un upgrade vía webhook.
   return intlMiddleware(request);
 });
 

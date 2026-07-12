@@ -1,15 +1,23 @@
 import { Check } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { PlanCta, type PlanAction } from "@/components/membership/plan-cta";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import type { Plan } from "@/types";
 
-/** Tarjeta de plan. Nombre, descripción y features vienen de i18n. */
-export function PricingCard({ plan }: { plan: Plan }) {
+/**
+ * Tarjeta de plan. Nombre, descripción y features vienen de i18n; la acción
+ * del CTA la decide el servidor (página de membresía) según el viewer.
+ */
+export function PricingCard({
+  plan,
+  action,
+}: {
+  plan: Plan;
+  action: PlanAction;
+}) {
   const t = useTranslations("membership");
   // Las features son un arreglo en el JSON de mensajes
   const features = t.raw(`plans.${plan.id}.features`) as string[];
@@ -64,15 +72,11 @@ export function PricingCard({ plan }: { plan: Plan }) {
           ))}
         </ul>
 
-        <Button
-          className="w-full"
-          variant={plan.popular ? "default" : "outline"}
-          asChild
-        >
-          <Link href="/registro">
-            {plan.priceMonthlyUsd === 0 ? t("ctaFree") : t("cta")}
-          </Link>
-        </Button>
+        <PlanCta
+          action={action}
+          popular={plan.popular ?? false}
+          freePlan={plan.priceMonthlyUsd === 0}
+        />
       </CardContent>
     </Card>
   );

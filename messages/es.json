@@ -230,7 +230,11 @@
           "Exportación de datos (CSV/API)"
         ]
       }
-    }
+    },
+    "currentPlan": "Su plan actual",
+    "manage": "Gestionar suscripción",
+    "checkoutUnavailable": "Los pagos no están configurados en este entorno.",
+    "checkoutError": "No se pudo iniciar el pago. Intente nuevamente."
   },
   "auth": {
     "login": {
@@ -283,5 +287,25 @@
     "legal": "Términos y privacidad",
     "rights": "© {year} AndesIntel SpA. Todos los derechos reservados.",
     "disclaimer": "Plataforma de demostración con datos de ejemplo."
+  },
+  "account": {
+    "title": "Mi cuenta",
+    "subtitle": "Gestione su perfil y su suscripción.",
+    "profileTitle": "Perfil",
+    "planTitle": "Suscripción",
+    "currentPlan": "Plan actual:",
+    "status": {
+      "ACTIVE": "Activa",
+      "PAST_DUE": "Pago pendiente",
+      "CANCELED": "Cancelada",
+      "INCOMPLETE": "Incompleta"
+    },
+    "renewsOn": "Se renueva el {date}.",
+    "endsOn": "Termina el {date} (no se renovará).",
+    "manageButton": "Gestionar suscripción",
+    "upgrade": "Ver planes",
+    "checkoutSuccess": "¡Pago exitoso! Su plan se activará en unos segundos cuando la pasarela confirme la suscripción.",
+    "portalUnavailable": "El portal de pagos no está configurado en este entorno.",
+    "portalError": "No se pudo abrir el portal. Intente nuevamente."
   }
 }

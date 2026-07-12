@@ -11,6 +11,7 @@ import {
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { routing, type Locale } from "@/i18n/routing";
+import { getViewer } from "@/lib/access";
 import { auth } from "@/lib/auth";
 import type { SessionUser } from "@/types";
 
@@ -57,16 +58,19 @@ export default async function LocaleLayout({
   // Mensajes completos para los componentes cliente (filtros, gráficos, etc.)
   const messages = await getMessages();
 
-  const session = await auth();
-  const user: SessionUser | null = session?.user
-    ? {
-        id: session.user.id,
-        name: session.user.name ?? null,
-        email: session.user.email ?? null,
-        tier: session.user.tier,
-        role: session.user.role,
-      }
-    : null;
+  // tier/role frescos desde la base (el claim del JWT puede quedar atrás
+  // justo después de un cambio de plan vía webhook).
+  const [session, viewer] = await Promise.all([auth(), getViewer()]);
+  const user: SessionUser | null =
+    session?.user && viewer
+      ? {
+          id: viewer.id,
+          name: session.user.name ?? null,
+          email: session.user.email ?? null,
+          tier: viewer.tier,
+          role: viewer.role,
+        }
+      : null;
 
   return (
     <html lang={locale} className={geistSans.variable}>
