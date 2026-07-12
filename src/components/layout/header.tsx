@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Mountain, X } from "lucide-react";
+import { LogOut, Menu, Mountain, X } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
 
 import { LanguageSwitcher } from "@/components/layout/language-switcher";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
-import { SITE } from "@/lib/constants";
+import { SITE, TIER_PLAN_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
+import type { SessionUser } from "@/types";
 
 /** Rutas principales del sitio (las etiquetas viven en `nav.*`). */
 const NAV_ITEMS = [
@@ -20,7 +23,65 @@ const NAV_ITEMS = [
   { key: "membership", href: "/membresia" },
 ] as const;
 
-export function Header() {
+/** Sesión iniciada: plan + nombre + salir. Anónimo: entrar / crear cuenta. */
+function AuthActions({
+  user,
+  compact,
+  onNavigate,
+}: {
+  user: SessionUser | null;
+  compact?: boolean;
+  onNavigate?: () => void;
+}) {
+  const t = useTranslations("nav");
+  const tPlans = useTranslations("membership.plans");
+
+  if (user) {
+    return (
+      <>
+        <Badge variant="outline" className="max-w-40 gap-1.5">
+          <span className="truncate font-normal text-muted-foreground">
+            {user.name ?? user.email}
+          </span>
+          <span className="text-brand-700">
+            {tPlans(`${TIER_PLAN_ID[user.tier]}.name`)}
+          </span>
+        </Badge>
+        <Button
+          variant={compact ? "outline" : "ghost"}
+          size="sm"
+          className={compact ? "flex-1" : undefined}
+          onClick={() => void signOut({ callbackUrl: "/" })}
+        >
+          <LogOut className="h-4 w-4" aria-hidden />
+          {t("signOut")}
+        </Button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Button
+        variant={compact ? "outline" : "ghost"}
+        size="sm"
+        className={compact ? "flex-1" : undefined}
+        asChild
+      >
+        <Link href="/login" onClick={onNavigate}>
+          {t("login")}
+        </Link>
+      </Button>
+      <Button size="sm" className={compact ? "flex-1" : undefined} asChild>
+        <Link href="/registro" onClick={onNavigate}>
+          {t("signup")}
+        </Link>
+      </Button>
+    </>
+  );
+}
+
+export function Header({ user }: { user: SessionUser | null }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -66,12 +127,7 @@ export function Header() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <LanguageSwitcher />
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">{t("login")}</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link href="/registro">{t("signup")}</Link>
-          </Button>
+          <AuthActions user={user} />
         </div>
 
         {/* Toggle móvil */}
@@ -111,17 +167,8 @@ export function Header() {
                 {t(item.key)}
               </Link>
             ))}
-            <div className="mt-2 flex gap-2 border-t pt-3">
-              <Button variant="outline" size="sm" className="flex-1" asChild>
-                <Link href="/login" onClick={() => setOpen(false)}>
-                  {t("login")}
-                </Link>
-              </Button>
-              <Button size="sm" className="flex-1" asChild>
-                <Link href="/registro" onClick={() => setOpen(false)}>
-                  {t("signup")}
-                </Link>
-              </Button>
+            <div className="mt-2 flex flex-wrap items-center gap-2 border-t pt-3">
+              <AuthActions user={user} compact onNavigate={() => setOpen(false)} />
             </div>
           </div>
         </nav>

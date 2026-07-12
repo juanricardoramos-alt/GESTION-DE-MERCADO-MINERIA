@@ -12,7 +12,8 @@
     "reports": "Research",
     "membership": "Membership",
     "login": "Sign in",
-    "signup": "Create account"
+    "signup": "Create account",
+    "signOut": "Sign out"
   },
   "sectors": {
     "all": "All sectors",
@@ -231,7 +232,6 @@
     }
   },
   "auth": {
-    "demoNotice": "Demo interface: sign-up and sign-in are not connected to a backend yet.",
     "login": {
       "title": "Sign in",
       "subtitle": "Access your AndesIntel account",
@@ -254,6 +254,13 @@
       "haveAccount": "Already have an account?",
       "loginLink": "Sign in",
       "success": "Demo account created. Check your inbox to confirm (simulated)."
+    },
+    "google": "Continue with Google",
+    "orSeparator": "or with your email",
+    "errors": {
+      "invalidCredentials": "Incorrect email or password.",
+      "emailTaken": "An account with that email already exists.",
+      "generic": "The operation could not be completed. Please try again."
     }
   },
   "newsletter": {

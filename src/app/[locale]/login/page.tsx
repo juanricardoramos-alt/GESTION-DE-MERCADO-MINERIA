@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AuthForm } from "@/components/membership/auth-form";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
+import { googleEnabled } from "@/lib/auth.config";
 
 type Props = { params: { locale: string } };
 
@@ -30,7 +32,9 @@ export default async function LoginPage({ params: { locale } }: Props) {
 
         <Card>
           <CardContent className="p-6">
-            <AuthForm mode="login" />
+            <Suspense>
+              <AuthForm mode="login" googleEnabled={googleEnabled} />
+            </Suspense>
             <div className="mt-4 text-center text-xs">
               <a href="#" className="text-muted-foreground hover:underline">
                 {t("forgot")}

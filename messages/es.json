@@ -12,7 +12,8 @@
     "reports": "Estudios",
     "membership": "Membresía",
     "login": "Iniciar sesión",
-    "signup": "Crear cuenta"
+    "signup": "Crear cuenta",
+    "signOut": "Cerrar sesión"
   },
   "sectors": {
     "all": "Todos los sectores",
@@ -231,7 +232,6 @@
     }
   },
   "auth": {
-    "demoNotice": "Interfaz de demostración: el registro y el inicio de sesión aún no están conectados a un backend.",
     "login": {
       "title": "Iniciar sesión",
       "subtitle": "Acceda a su cuenta de AndesIntel",
@@ -254,6 +254,13 @@
       "haveAccount": "¿Ya tiene cuenta?",
       "loginLink": "Inicie sesión",
       "success": "Cuenta de demostración creada. Revise su correo para confirmar (simulado)."
+    },
+    "google": "Continuar con Google",
+    "orSeparator": "o con su correo",
+    "errors": {
+      "invalidCredentials": "Correo o contraseña incorrectos.",
+      "emailTaken": "Ya existe una cuenta con ese correo.",
+      "generic": "No se pudo completar la operación. Intente nuevamente."
     }
   },
   "newsletter": {

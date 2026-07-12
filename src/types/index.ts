@@ -126,6 +126,15 @@ export interface EnergyMixPoint {
   thermal: number;
 }
 
+/** Usuario de la sesión tal como lo consume la UI (header, menús). */
+export interface SessionUser {
+  id: string;
+  name: string | null;
+  email: string | null;
+  tier: "FREE" | "PROFESIONAL" | "CORPORATIVO";
+  role: "USER" | "ADMIN";
+}
+
 /** Plan de membresía. */
 export interface Plan {
   id: string;

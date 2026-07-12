@@ -11,6 +11,8 @@ import {
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { routing, type Locale } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
+import type { SessionUser } from "@/types";
 
 import "../globals.css";
 
@@ -55,11 +57,22 @@ export default async function LocaleLayout({
   // Mensajes completos para los componentes cliente (filtros, gráficos, etc.)
   const messages = await getMessages();
 
+  const session = await auth();
+  const user: SessionUser | null = session?.user
+    ? {
+        id: session.user.id,
+        name: session.user.name ?? null,
+        email: session.user.email ?? null,
+        tier: session.user.tier,
+        role: session.user.role,
+      }
+    : null;
+
   return (
     <html lang={locale} className={geistSans.variable}>
       <body className="flex min-h-screen flex-col font-sans">
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <Header user={user} />
           <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>

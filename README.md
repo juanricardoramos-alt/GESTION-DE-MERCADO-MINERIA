@@ -56,6 +56,20 @@ npm run build  # build de producción
 npm run start  # servir el build
 ```
 
+## Autenticación
+
+Auth.js (NextAuth v5) con dos métodos:
+
+- **Credenciales**: email + contraseña (hash bcrypt). El registro vive en
+  `POST /api/auth/register` y crea cuentas con plan FREE.
+- **Google OAuth**: opcional; el botón aparece solo si `GOOGLE_CLIENT_ID` y
+  `GOOGLE_CLIENT_SECRET` están configuradas.
+
+La sesión es JWT y lleva `role` (USER/ADMIN) y `tier`
+(FREE/PROFESIONAL/CORPORATIVO). El middleware corta el acceso a las rutas
+protegidas (`/analisis` exige plan pagado, `/admin` exige rol ADMIN) y la
+autorización fina re-consulta la base en el servidor (`src/lib/access.ts`).
+
 ## Convención de contenido bilingüe
 
 Los campos de texto con variante es/en se guardan en Postgres como columnas

@@ -36,6 +36,16 @@ export const SECTOR_BADGE: Record<SectorId, string> = {
   desalinizacion: "border-blue-200 bg-blue-50 text-blue-700",
 };
 
+/**
+ * Mapea el tier de acceso (enum de la base) al id de plan comercial
+ * (usado en `messages/*` bajo `membership.plans.<id>` y en la pasarela).
+ */
+export const TIER_PLAN_ID = {
+  FREE: "basico",
+  PROFESIONAL: "profesional",
+  CORPORATIVO: "corporativo",
+} as const;
+
 /** Orden canónico de estados de proyecto. */
 export const PROJECT_STATUSES: ProjectStatus[] = [
   "operation",
