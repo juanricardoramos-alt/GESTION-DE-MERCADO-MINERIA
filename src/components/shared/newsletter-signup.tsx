@@ -23,7 +23,7 @@ export function NewsletterSignup() {
   }
 
   return (
-    <section className="rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-700 px-6 py-10 text-white sm:px-10">
+    <section className="rounded-xl bg-gradient-to-br from-brand-600 to-teal-700 px-6 py-10 text-white sm:px-10">
       <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/15">
           <Mail className="h-5 w-5" aria-hidden />
@@ -31,7 +31,7 @@ export function NewsletterSignup() {
         <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
           {t("title")}
         </h2>
-        <p className="mt-3 max-w-xl text-sm leading-relaxed text-indigo-100 sm:text-base">
+        <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/85 sm:text-base">
           {t("subtitle")}
         </p>
 
@@ -67,7 +67,7 @@ export function NewsletterSignup() {
           </form>
         )}
 
-        <p className="mt-4 text-xs text-indigo-200">{t("privacy")}</p>
+        <p className="mt-4 text-xs text-white/70">{t("privacy")}</p>
       </div>
     </section>
   );

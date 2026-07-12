@@ -26,7 +26,7 @@ import { PROJECTS } from "@/data/projects";
 import { Link } from "@/i18n/navigation";
 import { STATUS_BADGE } from "@/lib/constants";
 import { formatUsdM, pickText } from "@/lib/formatters";
-import { getInitials } from "@/lib/utils";
+import { cn, getAvatarColor, getInitials } from "@/lib/utils";
 
 type Props = { params: { locale: string; slug: string } };
 
@@ -65,7 +65,12 @@ export default async function CompanyProfilePage({
 
       {/* Encabezado del perfil */}
       <div className="mt-6 flex flex-col gap-6 rounded-xl border bg-card p-6 shadow-sm sm:flex-row sm:items-start sm:p-8">
-        <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-xl font-bold text-white">
+        <span
+          className={cn(
+            "flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-xl font-bold text-white",
+            getAvatarColor(company.name),
+          )}
+        >
           {getInitials(company.name)}
         </span>
         <div className="min-w-0 flex-1">
@@ -136,7 +141,7 @@ export default async function CompanyProfilePage({
                     key={executive.email}
                     className="flex items-start gap-3 rounded-lg border p-4"
                   >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-sm font-semibold text-primary">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-sm font-semibold text-primary">
                       {getInitials(executive.name)}
                     </span>
                     <div className="min-w-0">

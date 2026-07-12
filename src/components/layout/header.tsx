@@ -37,7 +37,7 @@ export function Header() {
           className="flex items-center gap-2"
           onClick={() => setOpen(false)}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-indigo-600 to-violet-600 text-white">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-brand-600 text-white">
             <Mountain className="h-4 w-4" aria-hidden />
           </span>
           <span className="text-lg font-bold tracking-tight">

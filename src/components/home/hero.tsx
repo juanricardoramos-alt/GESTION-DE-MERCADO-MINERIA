@@ -8,14 +8,14 @@ export function Hero() {
   const t = useTranslations("home.hero");
 
   return (
-    <section className="relative overflow-hidden border-b bg-gradient-to-b from-indigo-50/80 via-background to-background">
+    <section className="relative overflow-hidden border-b bg-gradient-to-b from-brand-50/80 via-background to-background">
       {/* Retícula decorativa sutil */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(79,70,229,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(79,70,229,0.06)_1px,transparent_1px)] bg-[size:48px_48px]"
       />
       <div className="container relative flex flex-col items-center py-20 text-center sm:py-28">
-        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-white px-4 py-1.5 text-xs font-medium text-indigo-700 shadow-sm">
+        <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-200 bg-white px-4 py-1.5 text-xs font-medium text-brand-700 shadow-sm">
           <Sparkles className="h-3.5 w-3.5" aria-hidden />
           {t("badge")}
         </span>

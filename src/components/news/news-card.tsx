@@ -20,7 +20,7 @@ export function NewsCard({ article }: { article: NewsArticle }) {
           {article.premium ? (
             <Badge
               variant="outline"
-              className="border-violet-200 bg-violet-50 text-violet-700"
+              className="border-amber-200 bg-amber-50 text-amber-700"
             >
               <Lock className="h-3 w-3" aria-hidden />
               {t("membersOnly")}

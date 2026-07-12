@@ -1,10 +1,14 @@
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
 /**
- * Tema de marca: índigo como color primario, grises neutros (slate)
- * y teal como acento de datos. Los tokens semánticos (background,
- * primary, muted, etc.) se definen como variables CSS en globals.css
- * siguiendo la convención de shadcn/ui.
+ * Tema de marca: índigo como color primario (#4F46E5 = brand-600),
+ * grises neutros (slate) y teal como acento de datos. Los tokens
+ * semánticos (background, primary, muted, etc.) se definen como
+ * variables CSS en globals.css siguiendo la convención de shadcn/ui.
+ *
+ * `brand` es la fuente única para usos directos del índigo de marca:
+ * en componentes usar siempre `brand-*`, nunca `indigo-*`.
  */
 const config: Config = {
   darkMode: ["class"],
@@ -17,6 +21,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        brand: colors.indigo,
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

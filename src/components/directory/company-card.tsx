@@ -5,7 +5,7 @@ import { SectorBadge } from "@/components/shared/sector-badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { pickText } from "@/lib/formatters";
-import { getInitials } from "@/lib/utils";
+import { cn, getAvatarColor, getInitials } from "@/lib/utils";
 import type { Company } from "@/types";
 
 export function CompanyCard({ company }: { company: Company }) {
@@ -14,10 +14,15 @@ export function CompanyCard({ company }: { company: Company }) {
 
   return (
     <Link href={`/empresas/${company.slug}`} className="group block h-full">
-      <Card className="h-full transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md">
+      <Card className="h-full transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
         <CardContent className="flex h-full flex-col gap-3 p-6">
           <div className="flex items-start justify-between gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-600 to-violet-600 text-sm font-bold text-white">
+            <span
+              className={cn(
+                "flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white",
+                getAvatarColor(company.name),
+              )}
+            >
               {getInitials(company.name)}
             </span>
             <div className="flex flex-wrap justify-end gap-1.5">

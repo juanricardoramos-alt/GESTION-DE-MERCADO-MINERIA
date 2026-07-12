@@ -56,7 +56,7 @@ export function NewsExplorer() {
                 "rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors",
                 sector === s
                   ? "border-primary bg-primary text-primary-foreground"
-                  : "border-input bg-background text-muted-foreground hover:border-indigo-300 hover:text-foreground",
+                  : "border-input bg-background text-muted-foreground hover:border-brand-300 hover:text-foreground",
               )}
             >
               {t(`sectors.${s}`)}

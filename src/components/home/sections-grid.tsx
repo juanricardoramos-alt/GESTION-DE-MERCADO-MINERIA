@@ -31,9 +31,9 @@ export function SectionsGrid() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {MODULES.map(({ key, href, icon: Icon }) => (
           <Link key={key} href={href} className="group">
-            <Card className="h-full transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md">
+            <Card className="h-full transition-all hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md">
               <CardContent className="flex h-full flex-col gap-3 p-6">
-                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-50 text-primary">
+                <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 text-primary">
                   <Icon className="h-5 w-5" aria-hidden />
                 </span>
                 <h3 className="font-semibold text-foreground">

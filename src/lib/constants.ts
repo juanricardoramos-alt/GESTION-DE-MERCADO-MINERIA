@@ -29,7 +29,7 @@ export const SECTORS: SectorId[] = [
 
 /** Clases de badge por sector (fondo suave + texto oscuro del mismo matiz). */
 export const SECTOR_BADGE: Record<SectorId, string> = {
-  mineria: "border-indigo-200 bg-indigo-50 text-indigo-700",
+  mineria: "border-brand-200 bg-brand-50 text-brand-700",
   energia: "border-amber-200 bg-amber-50 text-amber-700",
   litio: "border-teal-200 bg-teal-50 text-teal-700",
   hidrogeno: "border-sky-200 bg-sky-50 text-sky-700",
@@ -55,22 +55,25 @@ export const STATUS_COLOR: Record<ProjectStatus, string> = {
 /** Clases de badge por estado de proyecto. */
 export const STATUS_BADGE: Record<ProjectStatus, string> = {
   operation: "border-green-200 bg-green-50 text-green-700",
-  construction: "border-indigo-200 bg-indigo-50 text-indigo-700",
+  construction: "border-brand-200 bg-brand-50 text-brand-700",
   approved: "border-teal-200 bg-teal-50 text-teal-700",
   evaluation: "border-amber-200 bg-amber-50 text-amber-700",
 };
 
 /**
- * Paleta categórica para gráficos, validada para visión de color deficiente
- * (ΔE adyacente ≥ 31) y contraste ≥ 3:1 sobre superficie blanca.
+ * Paleta categórica para gráficos. Los 4 matices de identidad pasan el
+ * validador dataviz sobre superficie clara: banda de luminosidad, piso de
+ * croma, ΔE adyacente ≥ 31 (CVD) y contraste ≥ 3:1. `neutral` es gris por
+ * diseño (bajo el piso de croma): se reserva para la categoría residual
+ * con etiqueta directa y nunca hace trabajo de identidad como serie.
  * Asignación fija por serie — nunca reciclar según el orden de llegada.
  */
 export const CHART = {
-  indigo: "#4F46E5", // serie 1 / marca
+  indigo: "#4F46E5", // serie 1 / marca (= brand-600)
   teal: "#0D9488", // serie 2 / acento de datos
   amber: "#D97706", // serie 3
   rose: "#E11D48", // serie 4
-  neutral: "#64748B", // categoría residual (p. ej. térmica)
+  neutral: "#64748B", // categoría residual (p. ej. térmica), solo con etiqueta
   grid: "#E2E8F0",
   axis: "#64748B",
 } as const;
