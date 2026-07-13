@@ -17,7 +17,7 @@ export function Pagination({
   page: number;
   pageCount: number;
   basePath: string;
-  searchParams: { sector?: string; q?: string };
+  searchParams: { sector?: string; q?: string; origin?: string };
 }) {
   const t = useTranslations("common");
   if (pageCount <= 1) return null;
@@ -25,6 +25,7 @@ export function Pagination({
   function hrefFor(target: number): string {
     const params = new URLSearchParams();
     if (searchParams.sector) params.set("sector", searchParams.sector);
+    if (searchParams.origin) params.set("origin", searchParams.origin);
     if (searchParams.q) params.set("q", searchParams.q);
     if (target > 1) params.set("page", String(target));
     const qs = params.toString();

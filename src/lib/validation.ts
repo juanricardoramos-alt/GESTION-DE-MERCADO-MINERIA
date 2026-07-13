@@ -53,6 +53,11 @@ export const listSearchParamsSchema = z.object({
   page: pageParam,
 });
 
+/** /noticias agrega el filtro de origen (propio vs. agregado por RSS). */
+export const newsSearchParamsSchema = listSearchParamsSchema.extend({
+  origin: z.enum(["own", "external"]).optional().catch(undefined),
+});
+
 export const mapSearchParamsSchema = z.object({
   sector: sectorParam,
   region: queryParam,

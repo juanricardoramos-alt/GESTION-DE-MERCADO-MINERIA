@@ -58,7 +58,11 @@ export function ArticleForm({ article }: { article: NewsArticle | null }) {
           </select>
         </Field>
         <Field label={t("admin.fields.source")}>
-          <Input name="source" defaultValue={article?.source ?? ""} required />
+          <Input
+            name="sourceName"
+            defaultValue={article?.sourceName ?? ""}
+            required
+          />
         </Field>
         <Field label={t("admin.fields.date")}>
           <Input

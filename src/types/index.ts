@@ -28,8 +28,32 @@ export type ProjectStatus =
   | "approved"
   | "evaluation";
 
-/** Artículo del feed de noticias. */
+/** Artículo del feed de noticias (propio o agregado por RSS). */
 export interface NewsArticle {
+  id: string;
+  title: LocalizedText;
+  excerpt: LocalizedText;
+  sector: SectorId;
+  /** Nombre visible de la fuente. */
+  sourceName: string;
+  /** Fecha de publicación ISO 8601 (YYYY-MM-DD). */
+  date: string;
+  readingMinutes: number;
+  featured: boolean;
+  premium: boolean;
+  /** true = agregado por RSS: el click abre el artículo original. */
+  isExternal: boolean;
+  /** URL del artículo original (solo externos). */
+  originalUrl: string | null;
+  /** Home del medio externo. */
+  sourceUrl: string | null;
+  imageUrl: string | null;
+  /** Resumen corto del feed (máx. 250 caracteres), solo externos. */
+  summary: string | null;
+}
+
+/** Forma fuente de una noticia propia (datos de seed). */
+export interface ArticleSeed {
   id: string;
   title: LocalizedText;
   excerpt: LocalizedText;

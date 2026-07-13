@@ -53,11 +53,16 @@ function mapArticle(row: DbArticle): NewsArticle {
     title: toLocalized(row.title),
     excerpt: toLocalized(row.excerpt),
     sector: row.sector,
-    source: row.source,
-    date: toIsoDate(row.date),
+    sourceName: row.sourceName,
+    date: toIsoDate(row.publishedAt),
     readingMinutes: row.readingMinutes,
     featured: row.featured,
     premium: row.premium,
+    isExternal: row.isExternal,
+    originalUrl: row.originalUrl,
+    sourceUrl: row.sourceUrl,
+    imageUrl: row.imageUrl,
+    summary: row.summary,
   };
 }
 
@@ -128,14 +133,16 @@ function mapStudy(row: DbStudy, revealPremium: boolean): Report {
 // ---------------------------------------------------------------------------
 
 export async function getArticles(): Promise<NewsArticle[]> {
-  const rows = await prisma.article.findMany({ orderBy: { date: "desc" } });
+  const rows = await prisma.article.findMany({
+    orderBy: { publishedAt: "desc" },
+  });
   return rows.map(mapArticle);
 }
 
 export async function getFeaturedArticles(limit = 3): Promise<NewsArticle[]> {
   const rows = await prisma.article.findMany({
     where: { featured: true },
-    orderBy: { date: "desc" },
+    orderBy: { publishedAt: "desc" },
     take: limit,
   });
   return rows.map(mapArticle);
@@ -217,8 +224,8 @@ function ftsLanguage(locale: "es" | "en"): string {
 /** Expresión indexada por Article_fts_{es,en} — mantener en sincronía. */
 function articleVector(locale: "es" | "en"): Prisma.Sql {
   return locale === "en"
-    ? Prisma.sql`to_tsvector('english', coalesce("title"->>'en','') || ' ' || coalesce("excerpt"->>'en','') || ' ' || coalesce("source",''))`
-    : Prisma.sql`to_tsvector('spanish', coalesce("title"->>'es','') || ' ' || coalesce("excerpt"->>'es','') || ' ' || coalesce("source",''))`;
+    ? Prisma.sql`to_tsvector('english', coalesce("title"->>'en','') || ' ' || coalesce("excerpt"->>'en','') || ' ' || coalesce("sourceName",''))`
+    : Prisma.sql`to_tsvector('spanish', coalesce("title"->>'es','') || ' ' || coalesce("excerpt"->>'es','') || ' ' || coalesce("sourceName",''))`;
 }
 
 /** Expresión indexada por Company_fts_{es,en} — mantener en sincronía. */
@@ -232,6 +239,8 @@ export interface ArticleSearchParams {
   locale: "es" | "en";
   sector?: SectorId;
   q?: string;
+  /** "own" = contenido propio, "external" = agregado por RSS. */
+  origin?: "own" | "external";
   page: number;
   pageSize: number;
 }
@@ -239,16 +248,21 @@ export interface ArticleSearchParams {
 export async function searchArticles(
   params: ArticleSearchParams,
 ): Promise<PagedResult<NewsArticle>> {
-  const { locale, sector, q, page, pageSize } = params;
+  const { locale, sector, q, origin, page, pageSize } = params;
   const tsquery = q ? buildPrefixTsquery(q) : null;
+  const isExternal =
+    origin === "external" ? true : origin === "own" ? false : undefined;
 
   if (!tsquery) {
-    const where = sector ? { sector } : {};
+    const where = {
+      ...(sector ? { sector } : {}),
+      ...(isExternal === undefined ? {} : { isExternal }),
+    };
     const [total, rows] = await Promise.all([
       prisma.article.count({ where }),
       prisma.article.findMany({
         where,
-        orderBy: { date: "desc" },
+        orderBy: { publishedAt: "desc" },
         skip: (page - 1) * pageSize,
         take: pageSize,
       }),
@@ -262,17 +276,21 @@ export async function searchArticles(
   const sectorCond = sector
     ? Prisma.sql`AND "sector" = ${sector}::"Sector"`
     : Prisma.empty;
+  const originCond =
+    isExternal === undefined
+      ? Prisma.empty
+      : Prisma.sql`AND "isExternal" = ${isExternal}`;
 
   const [rows, countRows] = await Promise.all([
     prisma.$queryRaw<DbArticle[]>(Prisma.sql`
       SELECT * FROM "Article"
-      WHERE ${vector} @@ ${query} ${sectorCond}
-      ORDER BY ts_rank(${vector}, ${query}) DESC, "date" DESC
+      WHERE ${vector} @@ ${query} ${sectorCond} ${originCond}
+      ORDER BY ts_rank(${vector}, ${query}) DESC, "publishedAt" DESC
       LIMIT ${pageSize} OFFSET ${(page - 1) * pageSize}
     `),
     prisma.$queryRaw<Array<{ count: bigint }>>(Prisma.sql`
       SELECT count(*)::bigint AS count FROM "Article"
-      WHERE ${vector} @@ ${query} ${sectorCond}
+      WHERE ${vector} @@ ${query} ${sectorCond} ${originCond}
     `),
   ]);
   const total = Number(countRows[0]?.count ?? 0);

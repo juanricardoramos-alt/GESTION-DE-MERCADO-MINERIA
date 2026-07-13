@@ -113,6 +113,25 @@ la URL responde 403 sin el plan requerido).
 Para crear la cuenta admin: definir `ADMIN_EMAIL` y `ADMIN_PASSWORD` en
 `.env` y correr `npm run db:seed`.
 
+## Agregador de noticias (RSS)
+
+La plataforma **agrega** noticias externas: guarda titular, resumen corto
+(recortado del propio feed, máx. 250 caracteres), imagen, fecha y fuente —
+**nunca el cuerpo del artículo** — y el click abre siempre el artículo
+original en una pestaña nueva. Antes de leer un feed se consulta el
+robots.txt del medio.
+
+- **Fuentes**: arreglo `NEWS_SOURCES` en `src/lib/constants.ts` (nombre,
+  URL del feed, sitio y sector por defecto). El sector se refina con un
+  clasificador por keywords (litio, hidrógeno, desalación, etc.).
+- **Ingesta manual**: `npm run ingest:news` (deduplica por `originalUrl`
+  y reporta nuevas/duplicadas por fuente; una fuente caída no detiene a
+  las demás).
+- **Automática**: cron de Vercel cada 6 horas (`vercel.json`) contra
+  `/api/cron/ingest-news`, protegido con `CRON_SECRET`.
+- **UI**: las noticias agregadas muestran la fuente de forma visible y
+  `/noticias` permite filtrar contenido propio vs. agregado (`?origin=`).
+
 ## Búsqueda y filtros
 
 Los filtros de `/noticias`, `/empresas` y `/mapa` se resuelven en el

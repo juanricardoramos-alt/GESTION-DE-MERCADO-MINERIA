@@ -188,7 +188,14 @@
     "title": "News & current affairs",
     "subtitle": "Curated coverage of strategic industries: investments, permits, technology and markets.",
     "searchPlaceholder": "Search by headline, company or keyword…",
-    "resultsCount": "{count, plural, one {# article} other {# articles}}"
+    "resultsCount": "{count, plural, one {# article} other {# articles}}",
+    "origin": {
+      "label": "Content origin",
+      "all": "All sources",
+      "own": "Original content",
+      "external": "Aggregated"
+    },
+    "externalAria": "Read on {source} (opens in a new tab)"
   },
   "map": {
     "title": "Project map",

@@ -40,7 +40,7 @@ export const articleFormSchema = z.object({
   excerpt_es: longText,
   excerpt_en: longText,
   sector: sectorSchema,
-  source: requiredText.pipe(z.string().max(120)),
+  sourceName: requiredText.pipe(z.string().max(120)),
   date: dateField,
   readingMinutes: z.coerce.number().int().min(1).max(120),
   featured: checkbox,

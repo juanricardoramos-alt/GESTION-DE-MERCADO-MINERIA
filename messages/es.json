@@ -188,7 +188,14 @@
     "title": "Noticias y actualidad",
     "subtitle": "Cobertura curada de las industrias estratégicas: inversiones, permisos, tecnología y mercado.",
     "searchPlaceholder": "Buscar por título, empresa o palabra clave…",
-    "resultsCount": "{count, plural, one {# artículo} other {# artículos}}"
+    "resultsCount": "{count, plural, one {# artículo} other {# artículos}}",
+    "origin": {
+      "label": "Origen del contenido",
+      "all": "Todas las fuentes",
+      "own": "Contenido propio",
+      "external": "Agregadas"
+    },
+    "externalAria": "Leer en {source} (se abre en una pestaña nueva)"
   },
   "map": {
     "title": "Mapa de proyectos",

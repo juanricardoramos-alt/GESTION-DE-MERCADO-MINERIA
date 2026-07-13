@@ -90,11 +90,12 @@ async function seedArticles() {
       title: json(article.title),
       excerpt: json(article.excerpt),
       sector: article.sector,
-      source: article.source,
-      date: new Date(article.date),
+      sourceName: article.source,
+      publishedAt: new Date(article.date),
       readingMinutes: article.readingMinutes,
       featured: article.featured ?? false,
       premium: article.premium ?? false,
+      isExternal: false,
     };
     await prisma.article.upsert({
       where: { id: article.id },

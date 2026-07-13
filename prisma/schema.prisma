@@ -219,10 +219,22 @@ model Article {
   /// { es, en } — bajada pública del artículo.
   excerpt Json
   /// { es, en } — cuerpo completo; solo para miembros cuando `premium` es true.
+  /// Para artículos externos SIEMPRE es null: somos agregador, nunca
+  /// copiamos el cuerpo (el link lleva al sitio original).
   body    Json?
   sector  Sector
-  source  String
-  date    DateTime
+  /// Nombre visible de la fuente (medio propio o externo).
+  sourceName String
+  /// Sitio de la fuente externa (home del medio).
+  sourceUrl  String?
+  /// URL del artículo original; única, es la clave de deduplicación.
+  originalUrl String? @unique
+  publishedAt DateTime
+  imageUrl    String?
+  /// true = ingresado por RSS; el click abre el artículo original.
+  isExternal  Boolean @default(false)
+  /// Resumen corto del feed, recortado (máx. 250 caracteres).
+  summary     String? @db.VarChar(250)
   readingMinutes Int
   featured Boolean @default(false)
   premium  Boolean @default(false)
@@ -230,8 +242,9 @@ model Article {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([date(sort: Desc)])
+  @@index([publishedAt(sort: Desc)])
   @@index([sector])
+  @@index([isExternal])
 }
 
 model Study {

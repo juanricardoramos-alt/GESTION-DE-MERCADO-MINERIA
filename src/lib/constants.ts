@@ -146,6 +146,39 @@ export const TEAM: TeamMember[] = [
   },
 ];
 
+/**
+ * Fuentes RSS del agregador de noticias. `sector` es el fallback cuando el
+ * clasificador por keywords no reconoce ninguno. Editar aquí para sumar o
+ * quitar medios (verificar la URL del feed y su robots.txt).
+ */
+export interface NewsSource {
+  name: string;
+  feedUrl: string;
+  siteUrl: string;
+  sector: SectorId;
+}
+
+export const NEWS_SOURCES: NewsSource[] = [
+  {
+    name: "Minería Chilena",
+    feedUrl: "https://www.mch.cl/feed/",
+    siteUrl: "https://www.mch.cl",
+    sector: "mineria",
+  },
+  {
+    name: "Revista Electricidad",
+    feedUrl: "https://www.revistaei.cl/feed/",
+    siteUrl: "https://www.revistaei.cl",
+    sector: "energia",
+  },
+  {
+    name: "Reporte Minero",
+    feedUrl: "https://www.reporteminero.cl/feed",
+    siteUrl: "https://www.reporteminero.cl",
+    sector: "mineria",
+  },
+];
+
 /** Temas de interés del formulario de contacto (claves persistidas en la base). */
 export const CONTACT_TOPICS = [
   "proyectos-mineros",

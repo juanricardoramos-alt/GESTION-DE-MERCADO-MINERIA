@@ -6,7 +6,7 @@ import { ListFilterBar } from "@/components/shared/list-filter-bar";
 import { Pagination } from "@/components/shared/pagination";
 import { Link } from "@/i18n/navigation";
 import { searchArticles } from "@/lib/content";
-import { firstParam, listSearchParamsSchema } from "@/lib/validation";
+import { firstParam, newsSearchParamsSchema } from "@/lib/validation";
 
 export const dynamic = "force-dynamic";
 
@@ -32,9 +32,10 @@ export default async function NewsPage({
   const t = await getTranslations();
 
   // Filtros desde la URL, validados con Zod (basura → valores por defecto).
-  const filters = listSearchParamsSchema.parse({
+  const filters = newsSearchParamsSchema.parse({
     sector: firstParam(searchParams.sector),
     q: firstParam(searchParams.q),
+    origin: firstParam(searchParams.origin),
     page: firstParam(searchParams.page),
   });
 
@@ -42,11 +43,12 @@ export default async function NewsPage({
     locale: locale === "en" ? "en" : "es",
     sector: filters.sector,
     q: filters.q,
+    origin: filters.origin,
     page: filters.page,
     pageSize: PAGE_SIZE,
   });
 
-  const hasFilters = Boolean(filters.sector || filters.q);
+  const hasFilters = Boolean(filters.sector || filters.q || filters.origin);
 
   return (
     <div className="container py-12 sm:py-16">
@@ -58,7 +60,7 @@ export default async function NewsPage({
       </div>
 
       <div className="mt-10 space-y-6">
-        <ListFilterBar placeholder={t("news.searchPlaceholder")} />
+        <ListFilterBar placeholder={t("news.searchPlaceholder")} originFilter />
 
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span>{t("news.resultsCount", { count: result.total })}</span>
@@ -85,7 +87,11 @@ export default async function NewsPage({
           page={result.page}
           pageCount={result.pageCount}
           basePath="/noticias"
-          searchParams={{ sector: filters.sector, q: filters.q }}
+          searchParams={{
+            sector: filters.sector,
+            q: filters.q,
+            origin: filters.origin,
+          }}
         />
       </div>
     </div>

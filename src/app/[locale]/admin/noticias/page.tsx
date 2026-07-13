@@ -42,7 +42,7 @@ export default async function AdminArticlesPage({
               </p>
               <p className="text-xs text-muted-foreground">
                 {t(`sectors.${article.sector}`)} ·{" "}
-                {formatDate(article.date, locale)} · {article.source}
+                {formatDate(article.date, locale)} · {article.sourceName}
               </p>
             </div>
             {article.featured ? (

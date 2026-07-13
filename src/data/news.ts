@@ -1,10 +1,10 @@
-import type { NewsArticle } from "@/types";
+import type { ArticleSeed } from "@/types";
 
 /**
  * Feed de noticias de ejemplo. Empresas, proyectos y cifras son ficticios;
  * el estilo replica la prensa especializada del sector.
  */
-export const NEWS: NewsArticle[] = [
+export const NEWS: ArticleSeed[] = [
   {
     id: "n01",
     title: {
