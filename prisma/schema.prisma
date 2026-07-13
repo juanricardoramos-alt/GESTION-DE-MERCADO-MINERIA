@@ -263,3 +263,21 @@ model NewsletterSubscriber {
 
   createdAt DateTime @default(now())
 }
+
+/// Lead comercial del formulario de contacto de la portada.
+model ContactLead {
+  id         String  @id @default(cuid())
+  name       String
+  company    String
+  email      String
+  personRut  String?
+  companyRut String?
+  phone      String?
+  /// Claves de temas de interés (ver CONTACT_TOPICS en src/lib/constants.ts).
+  topics     String[]
+  locale     String  @default("es")
+
+  createdAt DateTime @default(now())
+
+  @@index([createdAt(sort: Desc)])
+}

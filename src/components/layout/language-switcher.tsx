@@ -8,7 +8,12 @@ import { routing, type Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 /** Selector ES/EN: reemplaza el locale conservando la ruta actual. */
-export function LanguageSwitcher() {
+export function LanguageSwitcher({
+  variant = "light",
+}: {
+  /** "dark" para superficies oscuras (header sobre el hero). */
+  variant?: "light" | "dark";
+}) {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -22,7 +27,12 @@ export function LanguageSwitcher() {
 
   return (
     <div
-      className="flex items-center rounded-md border bg-background p-0.5 text-xs font-semibold"
+      className={cn(
+        "flex items-center rounded-md border p-0.5 text-xs font-semibold",
+        variant === "dark"
+          ? "border-white/20 bg-white/5"
+          : "border-border bg-background",
+      )}
       role="group"
       aria-label="Language"
     >
@@ -36,7 +46,9 @@ export function LanguageSwitcher() {
             "rounded px-2 py-1 uppercase transition-colors",
             l === locale
               ? "bg-primary text-primary-foreground"
-              : "text-muted-foreground hover:text-foreground",
+              : variant === "dark"
+                ? "text-white/70 hover:text-white"
+                : "text-muted-foreground hover:text-foreground",
           )}
         >
           {l}

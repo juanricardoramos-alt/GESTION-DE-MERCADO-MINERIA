@@ -49,14 +49,6 @@
     "pageOf": "Page {page} of {total}"
   },
   "home": {
-    "hero": {
-      "badge": "Market intelligence for strategic industries",
-      "title": "B2B decisions driven by data, not gut feeling",
-      "titleHighlight": "mining, energy, lithium, hydrogen and desalination",
-      "subtitle": "Curated news, a georeferenced project pipeline, a company directory and market dashboards in a single subscription platform, built for commercial and strategy teams.",
-      "ctaPrimary": "See plans",
-      "ctaSecondary": "Explore the project map"
-    },
     "kpis": {
       "title": "The market today",
       "updated": "Updated as of {date}",
@@ -72,39 +64,124 @@
       "vsPrevYear": "vs. previous year",
       "projectsTracked": "{count} projects tracked"
     },
-    "sections": {
-      "title": "The full commercial intelligence cycle",
-      "subtitle": "Five integrated modules to spot opportunities before the rest of the market.",
-      "news": {
-        "title": "News & current affairs",
-        "description": "Daily curated feed by sector, with search and category filters."
-      },
-      "map": {
-        "title": "Project map",
-        "description": "Georeferenced investment pipeline with status, amounts and owners."
-      },
-      "directory": {
-        "title": "Company directory",
-        "description": "Searchable database of companies and executives with profiles and contacts."
-      },
-      "analytics": {
-        "title": "Market analytics",
-        "description": "Production, prices, projections and energy in interactive dashboards."
-      },
-      "reports": {
-        "title": "Research & reports",
-        "description": "Library of sector reports, with members-only exclusive content."
-      }
-    },
     "featured": {
       "title": "Latest from the industry",
       "subtitle": "This week's editorial selection"
     },
-    "cta": {
-      "title": "Turn information into commercial advantage",
-      "subtitle": "Get full platform access with a monthly or annual membership. No lock-in.",
-      "button": "See membership plans",
-      "secondary": "Subscribe to the free newsletter"
+    "heroCarousel": {
+      "ariaLabel": "Sectors we cover",
+      "cta": "Explore projects",
+      "pause": "Pause automatic rotation",
+      "play": "Resume automatic rotation",
+      "goTo": "View {sector} sector",
+      "slides": {
+        "mineria": "Investment pipeline, operations and suppliers across large-scale mining, with actionable data for your commercial team.",
+        "energia": "Generation, transmission and storage: Chile's power pipeline with development stages and owners.",
+        "litio": "Salt flats, installed capacity and long-term contracts: the lithium ecosystem in a single view.",
+        "hidrogeno": "The green hydrogen and ammonia projects redrawing the country's export matrix.",
+        "desalinizacion": "Desalination plants in operation and under review, with capacity, industrial clients and timelines."
+      }
+    },
+    "about": {
+      "title": "Who we are",
+      "p1": "Market Intelligence is a B2B market-intelligence platform focused on Chile's strategic industries: mining, energy, lithium, green hydrogen and desalination.",
+      "p2": "We pair a specialised editorial team with structured data on projects, companies and executives, so commercial and strategy teams decide on evidence and get there before their competition.",
+      "mapTitle": "Georeferenced pipeline",
+      "mapCaption": "Highlighted projects from the pipeline, by estimated investment.",
+      "mapAria": "Map of Chile showing highlighted pipeline projects",
+      "videoTitle": "Meet the platform in 2 minutes",
+      "videoPlaceholder": "Corporate video in production: this block will show the embed once configured."
+    },
+    "offerings": {
+      "title": "What you will find",
+      "subtitle": "Nine modules that turn scattered information into commercial decisions.",
+      "viewMore": "See more",
+      "comingSoon": "Coming soon",
+      "items": {
+        "news": {
+          "title": "News",
+          "description": "Curated coverage of investments, permits, technology and markets, filterable by sector."
+        },
+        "projects": {
+          "title": "Projects",
+          "description": "The georeferenced investment pipeline: amounts, stages, owners and start-up dates."
+        },
+        "companies": {
+          "title": "Companies",
+          "description": "Company directory with profiles, services, contacts and linked projects."
+        },
+        "people": {
+          "title": "People",
+          "description": "Key executives per company: roles and emails to reach the decision-maker directly."
+        },
+        "maps": {
+          "title": "Maps",
+          "description": "Explore the pipeline across the territory, filtering by sector, region and status."
+        },
+        "studies": {
+          "title": "Studies",
+          "description": "Library of sector reports with executive summaries and downloadable PDFs."
+        },
+        "analytics": {
+          "title": "Analytics",
+          "description": "Interactive dashboards for output, prices, projections and the energy mix."
+        },
+        "tenders": {
+          "title": "Tenders",
+          "description": "Tracking of public and private tenders across the industrial ecosystem."
+        },
+        "languages": {
+          "title": "Languages",
+          "description": "A fully bilingual platform: switch between Spanish and English at any time.",
+          "action": "Español"
+        }
+      }
+    },
+    "studiesCarousel": {
+      "title": "Research & reports",
+      "subtitle": "Sector reports produced by our analysis team.",
+      "viewAll": "Browse the full library",
+      "prev": "Previous studies",
+      "next": "Next studies"
+    },
+    "team": {
+      "title": "Our team",
+      "subtitle": "Analysts, editors and engineers specialised in strategic industries.",
+      "prev": "Previous members",
+      "next": "Next members",
+      "emailAria": "Email {name}",
+      "linkedinAria": "{name} on LinkedIn"
+    },
+    "contact": {
+      "title": "Let's talk",
+      "subtitle": "Tell us what information your team needs and we will prepare a tailored demo.",
+      "name": "Name",
+      "company": "Company",
+      "email": "Work email",
+      "personRut": "Personal RUT",
+      "companyRut": "Company RUT",
+      "phone": "Phone",
+      "optional": "(optional)",
+      "topicsTitle": "Select one or more topics of interest",
+      "topics": {
+        "proyectos-mineros": "Mining projects",
+        "faenas-operacion": "Operating mine sites",
+        "equipamiento-minero": "Mining equipment",
+        "plantas-desalinizadoras": "Desalination plants",
+        "hidrogeno": "Hydrogen",
+        "proyectos-energeticos": "Energy projects",
+        "exploracion": "Exploration",
+        "litio": "Lithium",
+        "tierras-raras": "Rare earths",
+        "directorio-empresas": "Company directory"
+      },
+      "submit": "Send",
+      "success": "Thank you! Our commercial team will reach out shortly.",
+      "errors": {
+        "topicsRequired": "Select at least one topic of interest.",
+        "invalidRut": "Check the RUT format (e.g. 12.345.678-5).",
+        "generic": "The form could not be sent. Please try again."
+      }
     }
   },
   "news": {
@@ -370,5 +447,16 @@
       "lng": "Longitude",
       "investmentUsdM": "Investment (US$M)"
     }
+  },
+  "header": {
+    "demo": "Request a demo",
+    "team": "Team",
+    "contact": "Contact",
+    "brochure": "Brochure",
+    "comingSoon": "Coming soon",
+    "signIn": "Sign in",
+    "linkedinAria": "Market Intelligence on LinkedIn",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   }
 }

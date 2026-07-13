@@ -124,6 +124,21 @@ texto usa full-text de Postgres (tsquery de prefijos + `ts_rank`) con
 de sector de empresas. Los searchParams se validan con Zod: parámetros
 inválidos degradan a los valores por defecto.
 
+## Portada
+
+- **Imágenes del hero**: los archivos de `public/hero/*.svg` son
+  **placeholders generados** (gradientes de marca, uno por sector).
+  Reemplazarlos por fotografías con licencia manteniendo los nombres
+  (`mineria`, `energia`, `litio`, `hidrogeno`, `desalinizacion`; puede
+  cambiarse la extensión ajustando `hero-carousel.tsx`). Lo mismo aplica
+  al fondo del formulario de contacto (`contact-section.tsx`).
+- **Video institucional**: configurar el ID de YouTube en `HOME_VIDEO_ID`
+  (`src/lib/constants.ts`); vacío muestra un placeholder sin embed.
+- **Equipo**: el arreglo `TEAM` en `src/lib/constants.ts` (datos de
+  ejemplo con avatares de iniciales).
+- **Leads**: el formulario de contacto guarda en la tabla `ContactLead`
+  (`POST /api/contact`, validado con Zod incluyendo RUT chileno).
+
 ## Convención de contenido bilingüe
 
 Los campos de texto con variante es/en se guardan en Postgres como columnas

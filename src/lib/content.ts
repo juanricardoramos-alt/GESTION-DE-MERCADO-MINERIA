@@ -364,6 +364,15 @@ export async function filterProjects(
   return rows.map(mapProject);
 }
 
+/** Proyectos destacados por inversión (pines del mapa de la portada). */
+export async function getTopProjects(limit = 8): Promise<Project[]> {
+  const rows = await prisma.project.findMany({
+    orderBy: { investmentUsdM: "desc" },
+    take: limit,
+  });
+  return rows.map(mapProject);
+}
+
 /** Regiones presentes en la cartera (para el select del mapa). */
 export async function getProjectRegions(): Promise<string[]> {
   const rows = await prisma.project.findMany({

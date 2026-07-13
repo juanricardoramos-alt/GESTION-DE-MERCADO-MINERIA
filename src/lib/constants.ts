@@ -1,4 +1,4 @@
-import type { ProjectStatus, SectorId } from "@/types";
+import type { LocalizedText, ProjectStatus, SectorId } from "@/types";
 
 /**
  * Identidad del sitio. Cambiar aquí el nombre de marca y datos de contacto;
@@ -92,6 +92,75 @@ export const CHART = {
   grid: "#E2E8F0",
   axis: "#64748B",
 } as const;
+
+/**
+ * ID de YouTube del video institucional de la portada. Vacío = se muestra
+ * un placeholder (sin embed muerto) hasta tener el video definitivo.
+ */
+export const HOME_VIDEO_ID = "";
+
+/** Integrantes del equipo para el carrusel de la portada (datos de ejemplo). */
+export interface TeamMember {
+  name: string;
+  role: LocalizedText;
+  email: string;
+  linkedin: string;
+}
+
+export const TEAM: TeamMember[] = [
+  {
+    name: "Valentina Torres Riquelme",
+    role: { es: "Directora Ejecutiva", en: "Chief Executive Officer" },
+    email: "v.torres@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/valentina-torres-gm",
+  },
+  {
+    name: "Cristóbal Fuentes Aravena",
+    role: { es: "Director de Estudios", en: "Head of Research" },
+    email: "c.fuentes@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/cristobal-fuentes-gm",
+  },
+  {
+    name: "Daniela Rojas Contreras",
+    role: { es: "Editora de Contenidos", en: "Content Editor" },
+    email: "d.rojas@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/daniela-rojas-gm",
+  },
+  {
+    name: "Ignacio Salas Vergara",
+    role: { es: "Analista Senior de Mercados", en: "Senior Market Analyst" },
+    email: "i.salas@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/ignacio-salas-gm",
+  },
+  {
+    name: "Fernanda Muñoz Leiva",
+    role: { es: "Gerenta Comercial", en: "Commercial Manager" },
+    email: "f.munoz@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/fernanda-munoz-gm",
+  },
+  {
+    name: "Tomás Herrera Pino",
+    role: { es: "Ingeniero de Datos", en: "Data Engineer" },
+    email: "t.herrera@gestion-mercado.cl",
+    linkedin: "https://www.linkedin.com/in/tomas-herrera-gm",
+  },
+];
+
+/** Temas de interés del formulario de contacto (claves persistidas en la base). */
+export const CONTACT_TOPICS = [
+  "proyectos-mineros",
+  "faenas-operacion",
+  "equipamiento-minero",
+  "plantas-desalinizadoras",
+  "hidrogeno",
+  "proyectos-energeticos",
+  "exploracion",
+  "litio",
+  "tierras-raras",
+  "directorio-empresas",
+] as const;
+
+export type ContactTopic = (typeof CONTACT_TOPICS)[number];
 
 /** Regiones de Chile presentes en la cartera de proyectos de ejemplo. */
 export const REGIONS = [

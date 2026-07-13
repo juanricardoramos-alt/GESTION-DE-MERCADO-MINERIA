@@ -49,14 +49,6 @@
     "pageOf": "Página {page} de {total}"
   },
   "home": {
-    "hero": {
-      "badge": "Inteligencia de mercados para industrias estratégicas",
-      "title": "Decisiones B2B con datos, no con intuición",
-      "titleHighlight": "minería, energía, litio, hidrógeno y desalinización",
-      "subtitle": "Noticias curadas, cartera de proyectos georreferenciada, directorio de empresas y dashboards de mercado en una sola plataforma de suscripción, construida para equipos comerciales y de estrategia.",
-      "ctaPrimary": "Conocer planes",
-      "ctaSecondary": "Explorar el mapa de proyectos"
-    },
     "kpis": {
       "title": "El mercado hoy",
       "updated": "Actualizado al {date}",
@@ -72,39 +64,124 @@
       "vsPrevYear": "vs. año anterior",
       "projectsTracked": "{count} proyectos monitoreados"
     },
-    "sections": {
-      "title": "Todo el ciclo de inteligencia comercial",
-      "subtitle": "Cinco módulos integrados para detectar oportunidades antes que el resto del mercado.",
-      "news": {
-        "title": "Noticias y actualidad",
-        "description": "Feed diario curado por sector, con búsqueda y filtros por categoría."
-      },
-      "map": {
-        "title": "Mapa de proyectos",
-        "description": "Cartera de inversiones georreferenciada con estado, montos y titulares."
-      },
-      "directory": {
-        "title": "Directorio de empresas",
-        "description": "Base buscable de compañías y ejecutivos con perfiles y contactos."
-      },
-      "analytics": {
-        "title": "Análisis de mercado",
-        "description": "Producción, precios, proyecciones y energía en dashboards interactivos."
-      },
-      "reports": {
-        "title": "Estudios y reportes",
-        "description": "Biblioteca de informes sectoriales, con contenido exclusivo para miembros."
-      }
-    },
     "featured": {
       "title": "Lo último del sector",
       "subtitle": "Selección editorial de la semana"
     },
-    "cta": {
-      "title": "Convierta información en ventaja comercial",
-      "subtitle": "Acceda a la plataforma completa con una membresía anual o mensual. Sin permanencia mínima.",
-      "button": "Ver planes de membresía",
-      "secondary": "Suscribirse al boletín gratuito"
+    "heroCarousel": {
+      "ariaLabel": "Sectores que cubrimos",
+      "cta": "Explorar proyectos",
+      "pause": "Pausar rotación automática",
+      "play": "Reanudar rotación automática",
+      "goTo": "Ver sector {sector}",
+      "slides": {
+        "mineria": "Cartera de inversiones, faenas y proveedores de la gran minería, con datos accionables para su equipo comercial.",
+        "energia": "Generación, transmisión y almacenamiento: el pipeline eléctrico chileno con estados de avance y titulares.",
+        "litio": "Salares, capacidad instalada y contratos de largo plazo: el ecosistema del litio en una sola vista.",
+        "hidrogeno": "Los proyectos de hidrógeno verde y amoníaco que están redibujando la matriz exportadora del país.",
+        "desalinizacion": "Plantas desaladoras en operación y evaluación, con capacidad, clientes industriales y calendario."
+      }
+    },
+    "about": {
+      "title": "Quiénes somos",
+      "p1": "Gestión de Mercado es una plataforma B2B de inteligencia de mercados enfocada en las industrias estratégicas de Chile: minería, energía, litio, hidrógeno verde y desalinización.",
+      "p2": "Combinamos un equipo editorial especializado con datos estructurados de proyectos, empresas y ejecutivos, para que los equipos comerciales y de estrategia decidan con evidencia y lleguen antes que su competencia.",
+      "mapTitle": "Cartera georreferenciada",
+      "mapCaption": "Proyectos destacados de la cartera, según inversión estimada.",
+      "mapAria": "Mapa de Chile con los proyectos destacados de la cartera",
+      "videoTitle": "Conozca la plataforma en 2 minutos",
+      "videoPlaceholder": "Video institucional en producción: este bloque mostrará el embed cuando esté configurado."
+    },
+    "offerings": {
+      "title": "Qué podrá encontrar",
+      "subtitle": "Nueve módulos que convierten información dispersa en decisiones comerciales.",
+      "viewMore": "Ver más",
+      "comingSoon": "Próximamente",
+      "items": {
+        "news": {
+          "title": "Noticias",
+          "description": "Cobertura curada de inversiones, permisos, tecnología y mercado, con filtros por sector."
+        },
+        "projects": {
+          "title": "Proyectos",
+          "description": "La cartera de inversión georreferenciada: montos, estados, titulares y puesta en marcha."
+        },
+        "companies": {
+          "title": "Empresas",
+          "description": "Directorio de compañías con perfiles, servicios, contactos y proyectos asociados."
+        },
+        "people": {
+          "title": "Personas",
+          "description": "Ejecutivos clave por empresa: cargos y correos para llegar directo a quien decide."
+        },
+        "maps": {
+          "title": "Mapas",
+          "description": "Explore la cartera sobre el territorio, con filtros por sector, región y estado."
+        },
+        "studies": {
+          "title": "Estudios",
+          "description": "Biblioteca de informes sectoriales con resúmenes ejecutivos y PDFs descargables."
+        },
+        "analytics": {
+          "title": "Analíticas",
+          "description": "Dashboards interactivos de producción, precios, proyecciones y matriz energética."
+        },
+        "tenders": {
+          "title": "Licitaciones",
+          "description": "Seguimiento de licitaciones públicas y privadas del ecosistema industrial."
+        },
+        "languages": {
+          "title": "Idiomas",
+          "description": "Plataforma íntegramente bilingüe: alterne entre español e inglés cuando quiera.",
+          "action": "English"
+        }
+      }
+    },
+    "studiesCarousel": {
+      "title": "Estudios y reportes",
+      "subtitle": "Informes sectoriales elaborados por nuestro equipo de análisis.",
+      "viewAll": "Ver biblioteca completa",
+      "prev": "Estudios anteriores",
+      "next": "Estudios siguientes"
+    },
+    "team": {
+      "title": "Nuestro equipo",
+      "subtitle": "Analistas, editores e ingenieros especializados en industrias estratégicas.",
+      "prev": "Integrantes anteriores",
+      "next": "Integrantes siguientes",
+      "emailAria": "Escribir a {name}",
+      "linkedinAria": "LinkedIn de {name}"
+    },
+    "contact": {
+      "title": "Conversemos",
+      "subtitle": "Cuéntenos qué información necesita su equipo y le prepararemos una demo personalizada.",
+      "name": "Nombre",
+      "company": "Empresa",
+      "email": "Correo corporativo",
+      "personRut": "RUT persona",
+      "companyRut": "RUT empresa",
+      "phone": "Teléfono",
+      "optional": "(opcional)",
+      "topicsTitle": "Seleccione uno o más temas de interés",
+      "topics": {
+        "proyectos-mineros": "Proyectos mineros",
+        "faenas-operacion": "Faenas en operación",
+        "equipamiento-minero": "Equipamiento minero",
+        "plantas-desalinizadoras": "Plantas desalinizadoras",
+        "hidrogeno": "Hidrógeno",
+        "proyectos-energeticos": "Proyectos energéticos",
+        "exploracion": "Exploración",
+        "litio": "Litio",
+        "tierras-raras": "Tierras raras",
+        "directorio-empresas": "Directorio de empresas"
+      },
+      "submit": "Enviar",
+      "success": "¡Gracias! Nuestro equipo comercial le escribirá a la brevedad.",
+      "errors": {
+        "topicsRequired": "Seleccione al menos un tema de interés.",
+        "invalidRut": "Revise el formato del RUT (ej: 12.345.678-5).",
+        "generic": "No se pudo enviar el formulario. Intente nuevamente."
+      }
     }
   },
   "news": {
@@ -370,5 +447,16 @@
       "lng": "Longitud",
       "investmentUsdM": "Inversión (MUS$)"
     }
+  },
+  "header": {
+    "demo": "Solicitar demo",
+    "team": "Equipo",
+    "contact": "Contacto",
+    "brochure": "Brochure",
+    "comingSoon": "Próximamente",
+    "signIn": "Ingresar",
+    "linkedinAria": "LinkedIn de Gestión de Mercado",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
   }
 }
