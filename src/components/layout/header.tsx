@@ -9,7 +9,7 @@ import { LanguageSwitcher } from "@/components/layout/language-switcher";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
-import { SITE, TIER_PLAN_ID } from "@/lib/constants";
+import { TIER_PLAN_ID } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import type { SessionUser } from "@/types";
 
@@ -83,6 +83,7 @@ function AuthActions({
 
 export function Header({ user }: { user: SessionUser | null }) {
   const t = useTranslations("nav");
+  const tBrand = useTranslations("brand");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -102,9 +103,9 @@ export function Header({ user }: { user: SessionUser | null }) {
             <Mountain className="h-4 w-4" aria-hidden />
           </span>
           <span className="text-lg font-bold tracking-tight">
-            Andes<span className="text-primary">Intel</span>
+            {tBrand("leading")}{" "}
+            <span className="text-primary">{tBrand("accent")}</span>
           </span>
-          <span className="sr-only">{SITE.name}</span>
         </Link>
 
         {/* Navegación escritorio */}

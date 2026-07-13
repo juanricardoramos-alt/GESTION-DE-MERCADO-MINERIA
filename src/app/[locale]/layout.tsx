@@ -36,10 +36,11 @@ export async function generateMetadata({
   params: { locale },
 }: Omit<Props, "children">): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "meta" });
+  const tBrand = await getTranslations({ locale, namespace: "brand" });
   return {
     title: {
       default: t("title"),
-      template: "%s | AndesIntel",
+      template: `%s | ${tBrand("full")}`,
     },
     description: t("description"),
   };

@@ -5,12 +5,14 @@ import type { ProjectStatus, SectorId } from "@/types";
  * los textos descriptivos viven en `messages/{es,en}.json`.
  */
 export const SITE = {
-  name: "AndesIntel",
-  contactEmail: "contacto@andesintel.cl",
+  /** Nombre canónico (es). La variante visible por idioma vive en `brand.*`. */
+  name: "Gestión de Mercado",
+  contactEmail: "contacto@gestion-mercado.cl",
   phone: "+56 2 2440 8100",
   address: "Av. Apoquindo 4501, Of. 1203, Las Condes, Santiago",
-  twitter: "https://twitter.com/andesintel",
-  linkedin: "https://www.linkedin.com/company/andesintel",
+  // X no admite guiones en los handles; el resto usa "gestion-mercado".
+  twitter: "https://twitter.com/gestionmercado",
+  linkedin: "https://www.linkedin.com/company/gestion-mercado",
 } as const;
 
 /**

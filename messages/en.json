@@ -1,7 +1,12 @@
 {
   "meta": {
-    "title": "AndesIntel — B2B Market Intelligence",
+    "title": "Market Intelligence — B2B insights for strategic industries",
     "description": "Market intelligence platform for mining, energy, lithium, green hydrogen and desalination in Chile: news, projects, companies, data and research."
+  },
+  "brand": {
+    "full": "Market Intelligence",
+    "leading": "Market",
+    "accent": "Intelligence"
   },
   "nav": {
     "home": "Home",
@@ -242,7 +247,7 @@
   "auth": {
     "login": {
       "title": "Sign in",
-      "subtitle": "Access your AndesIntel account",
+      "subtitle": "Access your Market Intelligence account",
       "email": "Email",
       "password": "Password",
       "submit": "Sign in",
@@ -288,7 +293,7 @@
     "careers": "Careers",
     "contact": "Contact",
     "legal": "Terms & privacy",
-    "rights": "© {year} AndesIntel SpA. All rights reserved.",
+    "rights": "© {year} Market Intelligence SpA. All rights reserved.",
     "disclaimer": "Demo platform with sample data."
   },
   "account": {

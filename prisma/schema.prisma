@@ -1,4 +1,4 @@
-// Esquema de datos de AndesIntel.
+// Esquema de datos de Gestión de Mercado.
 //
 // Convención bilingüe: los campos de texto que existen en español e inglés
 // se guardan como Json con la forma { "es": string, "en": string }

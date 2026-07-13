@@ -1,7 +1,12 @@
 {
   "meta": {
-    "title": "AndesIntel — Inteligencia de mercados B2B",
+    "title": "Gestión de Mercado — Inteligencia de mercados B2B",
     "description": "Plataforma de inteligencia de mercados para minería, energía, litio, hidrógeno verde y desalinización en Chile: noticias, proyectos, empresas, datos y estudios."
+  },
+  "brand": {
+    "full": "Gestión de Mercado",
+    "leading": "Gestión de",
+    "accent": "Mercado"
   },
   "nav": {
     "home": "Inicio",
@@ -242,7 +247,7 @@
   "auth": {
     "login": {
       "title": "Iniciar sesión",
-      "subtitle": "Acceda a su cuenta de AndesIntel",
+      "subtitle": "Acceda a su cuenta de Gestión de Mercado",
       "email": "Correo electrónico",
       "password": "Contraseña",
       "submit": "Entrar",
@@ -288,7 +293,7 @@
     "careers": "Trabaja con nosotros",
     "contact": "Contacto",
     "legal": "Términos y privacidad",
-    "rights": "© {year} AndesIntel SpA. Todos los derechos reservados.",
+    "rights": "© {year} Gestión de Mercado SpA. Todos los derechos reservados.",
     "disclaimer": "Plataforma de demostración con datos de ejemplo."
   },
   "account": {

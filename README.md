@@ -1,4 +1,4 @@
-# AndesIntel — Plataforma B2B de inteligencia de mercados
+# Gestión de Mercado — Plataforma B2B de inteligencia de mercados
 
 Portal de suscripción con noticias, mapa de proyectos, directorio de
 empresas, dashboards de mercado y biblioteca de estudios para las industrias de
@@ -29,8 +29,8 @@ archivo). La única variable obligatoria para arrancar es `DATABASE_URL`.
 Requiere un Postgres accesible. Con el cliente local:
 
 ```bash
-createuser andesintel --pwprompt --createdb
-createdb andesintel --owner andesintel
+createuser gestion_mercado --pwprompt --createdb
+createdb gestion_mercado --owner gestion_mercado
 ```
 
 Luego aplicar el esquema y poblar el contenido inicial:

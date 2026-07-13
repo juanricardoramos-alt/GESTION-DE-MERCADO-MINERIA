@@ -54,7 +54,8 @@ export function Footer() {
               <Mountain className="h-4 w-4" aria-hidden />
             </span>
             <span className="text-lg font-bold tracking-tight text-white">
-              Andes<span className="text-brand-400">Intel</span>
+              {t("brand.leading")}{" "}
+              <span className="text-brand-400">{t("brand.accent")}</span>
             </span>
           </div>
           <p className="text-sm leading-relaxed text-slate-400">
